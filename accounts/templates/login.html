@@ -15,6 +15,13 @@
         <label for="password">Password:</label><br>
         <input type="password" id="password" name="password" required><br><br>
 
+        {% if error %}
+        <div class="alert alert-danger">
+            {{ error }}
+        </div>
+{% endif %}
+
+
         <button type="submit">Login</button>
     </form>
 
