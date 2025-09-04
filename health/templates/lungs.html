@@ -6,6 +6,81 @@
     <title>lungs</title>
 </head>
 <body>
-    <h1>lungs</h1>
+     <h2>🫁 Lung Health Monitoring</h2>
+
+    {% if success %}
+        <p style="color: green;">{{ success }}</p>
+    {% endif %}
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label for="YELLOW_FINGERS">Yellow Fingers:</label>
+        <select name="YELLOW_FINGERS" required>
+            <option value="1">No</option>
+            <option value="2">Yes</option>
+        </select><br><br>
+
+        <label for="ANXIETY">Anxiety:</label>
+        <select name="ANXIETY" required>
+            <option value="1">No</option>
+            <option value="2">Yes</option>
+        </select><br><br>
+
+        <label for="FATIGUE">Fatigue:</label>
+        <select name="FATIGUE" required>
+            <option value="1">No</option>
+            <option value="2">Yes</option>
+        </select><br><br>
+
+        <label for="WHEEZING">Wheezing:</label>
+        <select name="WHEEZING" required>
+            <option value="1">No</option>
+            <option value="2">Yes</option>
+        </select><br><br>
+
+        <label for="ALCOHOL_CONSUMING">Alcohol Consuming:</label>
+        <select name="ALCOHOL_CONSUMING" required>
+            <option value="1">No</option>
+            <option value="2">Yes</option>
+        </select><br><br>
+
+        <label for="SMOKING">SMOKING:</label>
+        <select name="SMOKING" required>
+            <option value="1">No</option>
+            <option value="2">Yes</option>
+        </select><br><br>
+
+        <label for="COUGHING">Coughing:</label>
+        <select name="COUGHING" required>
+            <option value="1">No</option>
+            <option value="2">Yes</option>
+        </select><br><br>
+
+        <label for="SHORTNESS_OF_BREATH">Shortness of Breath:</label>
+        <select name="SHORTNESS_OF_BREATH" required>
+            <option value="1">No</option>
+            <option value="2">Yes</option>
+        </select><br><br>
+
+        <label for="SWALLOWING_DIFFICULTY">Swallowing Difficulty:</label>
+        <select name="SWALLOWING_DIFFICULTY" required>
+            <option value="1">No</option>
+            <option value="2">Yes</option>
+        </select><br><br>
+
+        <label for="CHEST_PAIN">Chest Pain:</label>
+        <select name="CHEST_PAIN" required>
+            <option value="1">No</option>
+            <option value="2">Yes</option>
+        </select><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
 </body>
 </html>

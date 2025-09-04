@@ -16,32 +16,51 @@ class UserProfile(models.Model):
     ]
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     dob = models.DateField()
-    gender = models.CharField(max_length=10,choices=GENDER_CHOICES)
+    gender = models.IntegerField(choices=GENDER_CHOICES)
     hypertension = models.BooleanField()
     heart_disease = models.BooleanField()
     ALLERGY = models.BooleanField()
     ALCOHOL_CONSUMING = models.BooleanField()
-    smoking_history = models.CharField(max_length=10,choices=SMOKING_CHOICES)
+    smoking_history = models.FloatField(choices=SMOKING_CHOICES)
 
     def __str__(self):
         return self.user.username
 
 # 2. Diabetes - Time-varying
 class DiabetesData(models.Model):
+    DIABETES_CHOICES=[
+        (0,'negative'),
+        (1,'positive')
+    ]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
-    bmi = models.FloatField()
+    weight = models.FloatField(help_text="Weight in kilograms")
+    height = models.FloatField(help_text="Height in meters")
     HbA1c_level = models.FloatField()
     blood_glucose_level = models.FloatField()
-
+    diabetes=models.BooleanField()
+    @property
+    def bmi(self):
+        try:
+            return round(self.weight / (self.height ** 2), 2)
+        except (ZeroDivisionError, TypeError):
+            return None
+        
+        
 # 3. Heart - Time-varying
 class HeartData(models.Model):
+    RESULT_CHOICES=[
+        ('positive','positive'),
+        ('negative','negative')
+
+    ]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
     heart_rate = models.IntegerField()
     systolic_bp = models.IntegerField()
     diastolic_bp = models.IntegerField()
     blood_sugar = models.FloatField()
+    result=models.CharField(choices=RESULT_CHOICES)
 
 # 4. Lung - Time-varying
 class LungData(models.Model):
