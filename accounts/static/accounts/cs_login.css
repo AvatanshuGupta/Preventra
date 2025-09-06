@@ -1,0 +1,192 @@
+.text-3d {
+    text-shadow: 0 2px 0 #ccc, 0 4px 0 #c9c9c9, 0 6px 0 #bbb,
+      0 8px 0 #b9b9b9, 0 10px 0 #aaa, 0 12px 2px rgba(0, 0, 0, 0.1),
+      0 0 8px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.3),
+      0 6px 10px rgba(0, 0, 0, 0.2), 0 10px 20px rgba(0, 0, 0, 0.25),
+      0 20px 20px rgba(0, 0, 0, 0.2), 0 40px 40px rgba(0, 0, 0, 0.15);
+  }
+
+
+  .text-neon {
+    text-shadow: 0 0 5px currentColor, 0 0 10px currentColor,
+      0 0 15px currentColor, 0 0 20px currentColor, 0 0 35px currentColor,
+      0 0 40px currentColor;
+  }
+
+
+  .text-gradient-animated {
+    background: linear-gradient(
+      45deg,
+      #32cd32,
+      #00ff00,
+      #7fff00,
+      #32cd32,
+      #00ff7f,
+      #32cd32
+    );
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-xy 4s ease infinite;
+  }
+
+
+  .text-shimmer {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.4),
+      transparent
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: text-shine 2s linear infinite;
+  }
+
+
+  /* Enhanced Glass Effect */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.15) inset,
+                0 10px 20px rgba(50, 205, 50, 0.1);
+  }
+
+
+  .hover-lift {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+
+  .hover-lift:hover {
+    transform: translateY(-12px) scale(1.03);
+    box-shadow: 0 40px 80px -12px rgba(0, 0, 0, 0.4),
+                0 0 0 2px rgba(255, 255, 255, 0.25) inset,
+                0 15px 30px rgba(50, 205, 50, 0.2);
+  }
+
+
+  /* Proper Header Z-Index */
+  .header-solid {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  }
+
+
+  /* Input Focus Effects */
+  .input-glow:focus {
+    box-shadow: 0 0 0 4px rgba(50, 205, 50, 0.25),
+                0 15px 35px -5px rgba(50, 205, 50, 0.4);
+    transform: translateY(-2px);
+  }
+
+
+  /* Enhanced Button Effects */
+  .btn-gradient {
+    background: linear-gradient(135deg, #32cd32 0%, #228b22 50%, #1e7e1e 100%);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(50, 205, 50, 0.3);
+  }
+
+
+  .btn-gradient::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.6s;
+  }
+
+
+  .btn-gradient:hover::before {
+    left: 100%;
+  }
+
+
+  .btn-gradient:hover {
+    box-shadow: 0 15px 40px rgba(50, 205, 50, 0.5);
+    transform: translateY(-3px);
+  }
+
+
+  /* Particle Animation */
+  .particle {
+    position: absolute;
+    background: radial-gradient(circle, rgba(50, 205, 50, 0.9) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: float 5s ease-in-out infinite;
+  }
+
+
+  /* Feature Card Hover */
+  .feature-card {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+  }
+
+
+  .feature-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 25px 50px -10px rgba(0, 0, 0, 0.25);
+    background: rgba(255, 255, 255, 1);
+  }
+
+
+  /* Icon Animations */
+  .icon-bounce:hover {
+    animation: bounce-slow 1.2s ease-in-out;
+    transform: scale(1.1);
+  }
+
+
+  /* Enhanced Welcome Text */
+  .welcome-enhanced {
+    position: relative;
+    display: inline-block;
+  }
+
+
+  .welcome-enhanced::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #32cd32, #00ff00);
+    border-radius: 2px;
+    animation: expand-line 2s ease-out 0.5s forwards;
+  }
+
+
+  @keyframes expand-line {
+    to { width: 60%; }
+  }
+
+
+  /* Logo Styling */
+  .logo-image {
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2));
+    transition: all 0.3s ease;
+  }
+
+
+  .logo-image:hover {
+    filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.3));
+    transform: scale(1.05);
+  }

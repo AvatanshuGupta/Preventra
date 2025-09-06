@@ -1,30 +1,327 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Preventra — Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="stylesheet" href="{% static 'accounts/cs_login.css' %}">
+  <script src="{% static 'accounts/js_login.js' %}"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["Inter", "sans-serif"],
+            display: ["Manrope", "sans-serif"],
+          },
+          colors: {
+            brand1: "#87CEEB",
+            brand2: "#87CEEB",
+            brand3: "#98E4D6",
+          },
+          animation: {
+            "gradient-x": "gradient-x 6s ease infinite",
+            "gradient-y": "gradient-y 8s ease infinite",
+            "gradient-xy": "gradient-xy 10s ease infinite",
+            float: "float 6s ease-in-out infinite",
+            "float-delayed": "float 6s ease-in-out infinite 2s",
+            "pulse-glow": "pulse-glow 3s ease-in-out infinite",
+            shimmer: "shimmer 2.5s linear infinite",
+            "bounce-slow": "bounce 3s ease-in-out infinite",
+            wiggle: "wiggle 1s ease-in-out infinite",
+            "neon-pulse": "neon-pulse 2s ease-in-out infinite alternate",
+            "text-shine": "text-shine 3s linear infinite",
+            morph: "morph 8s ease-in-out infinite",
+            orbit: "orbit 20s linear infinite",
+            sparkle: "sparkle 1.5s ease-in-out infinite",
+            "slide-up": "slide-up 0.6s ease-out",
+            "fade-in": "fade-in 0.8s ease-out",
+            "slide-down": "slide-down 0.4s ease-out",
+          },
+          keyframes: {
+            "gradient-x": {
+              "0%, 100%": { backgroundPosition: "0% 50%" },
+              "50%": { backgroundPosition: "100% 50%" },
+            },
+            "gradient-y": {
+              "0%, 100%": { backgroundPosition: "50% 0%" },
+              "50%": { backgroundPosition: "50% 100%" },
+            },
+            "gradient-xy": {
+              "0%, 100%": { backgroundPosition: "0% 0%" },
+              "25%": { backgroundPosition: "100% 0%" },
+              "50%": { backgroundPosition: "100% 100%" },
+              "75%": { backgroundPosition: "0% 100%" },
+            },
+            float: {
+              "0%, 100%": { transform: "translateY(0)" },
+              "50%": { transform: "translateY(-12px)" },
+            },
+            "pulse-glow": {
+              "0%, 100%": {
+                filter: "drop-shadow(0 0 8px rgba(50, 205, 50, 0.4))",
+                transform: "scale(1)",
+              },
+              "50%": {
+                filter: "drop-shadow(0 0 25px rgba(50, 205, 50, 0.9))",
+                transform: "scale(1.05)",
+              },
+            },
+            shimmer: {
+              "0%": { transform: "translateX(-100%)" },
+              "100%": { transform: "translateX(100%)" },
+            },
+            "bounce-slow": {
+              "0%, 100%": { transform: "translateY(0)" },
+              "50%": { transform: "translateY(-8px)" },
+            },
+            wiggle: {
+              "0%, 100%": { transform: "rotate(0deg)" },
+              "25%": { transform: "rotate(1deg)" },
+              "75%": { transform: "rotate(-1deg)" },
+            },
+            "neon-pulse": {
+              "0%": {
+                textShadow:
+                  "0 0 5px #32cd32, 0 0 10px #32cd32, 0 0 15px #32cd32",
+                filter: "brightness(1)",
+              },
+              "100%": {
+                textShadow:
+                  "0 0 10px #32cd32, 0 0 20px #32cd32, 0 0 30px #32cd32",
+                filter: "brightness(1.2)",
+              },
+            },
+            "text-shine": {
+              "0%": { backgroundPosition: "-200% center" },
+              "100%": { backgroundPosition: "200% center" },
+            },
+            morph: {
+              "0%, 100%": { borderRadius: "50% 20% 50% 20%" },
+              "25%": { borderRadius: "20% 50% 20% 50%" },
+              "50%": { borderRadius: "50% 50% 20% 20%" },
+              "75%": { borderRadius: "20% 20% 50% 50%" },
+            },
+            orbit: {
+              "0%": {
+                transform: "rotate(0deg) translateX(100px) rotate(0deg)",
+              },
+              "100%": {
+                transform: "rotate(360deg) translateX(100px) rotate(-360deg)",
+              },
+            },
+            sparkle: {
+              "0%, 100%": { opacity: "0", transform: "scale(0)" },
+              "50%": { opacity: "1", transform: "scale(1)" },
+            },
+            "slide-up": {
+              "0%": { transform: "translateY(30px)", opacity: "0" },
+              "100%": { transform: "translateY(0)", opacity: "1" },
+            },
+            "fade-in": {
+              "0%": { opacity: "0" },
+              "100%": { opacity: "1" },
+            },
+            "slide-down": {
+              "0%": { transform: "translateY(-20px)", opacity: "0" },
+              "100%": { transform: "translateY(0)", opacity: "1" },
+            },
+          },
+        },
+      },
+    };
+  </script>
 </head>
-<body>
-    <h2>Login</h2>
 
-    <form method="POST">
-        {% csrf_token %}
-        
-        <label for="uname">Username:</label><br>
-        <input type="text" id="uname" name="uname" required><br><br>
+<body
+  class="min-h-screen bg-gradient-to-b from-brand1 via-brand2 to-brand3 flex flex-col overflow-x-hidden animate-fade-in">
+  <!-- Floating Particles Background -->
+  <div id="particles" class="fixed inset-0 pointer-events-none z-0"></div>
 
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password" required><br><br>
+  <!-- Enhanced Header with Custom Logo -->
+  <header class="w-full py-5 px-6 flex items-center justify-center header-solid sticky top-0 z-50 animate-slide-down">
+    <div class="flex items-center gap-5">
+      <img src="{% static 'logo.jpg' %}" alt="Preventra Logo" class="w-14 h-14 object-contain logo-image rounded-lg" />
+      <span
+        class="text-4xl md:text-5xl lg:text-6xl font-black font-display text-3d text-gradient-animated tracking-tight">
+        PREVENTRA
+      </span>
+    </div>
+  </header>
 
-        {% if error %}
-        <div class="alert alert-danger">
-            {{ error }}
+  <!-- Main Content -->
+  <main class="flex-1 flex items-center justify-center px-6 relative z-10 py-8">
+    <div class="grid lg:grid-cols-2 gap-16 max-w-7xl w-full">
+      <!-- Enhanced Hero Section -->
+      <div class="flex flex-col justify-center relative space-y-6 animate-slide-up">
+        <!-- Reasonably Sized Welcome Text -->
+        <div class="relative">
+          <h1
+            class="welcome-enhanced text-4xl md:text-5xl lg:text-6xl font-black font-display leading-tight text-3d text-gradient-animated">
+            WELCOME
+          </h1>
         </div>
-        {% endif %}
+
+        <p class="text-lg text-gray-800 max-w-2xl drop-shadow-lg leading-relaxed font-semibold">
+          Your AI-driven health companion — track cardiovascular health, lung
+          function, and glucose trends in a secure, unified platform.
+        </p>
+
+        <!-- Enhanced Feature Cards -->
+        <div class="grid md:grid-cols-3 gap-6 mt-8">
+          <!-- Heart -->
+          <div class="feature-card p-6 rounded-3xl shadow-2xl">
+            <i class="fas fa-heartbeat text-red-500 text-3xl mb-3 icon-bounce"></i>
+            <h3 class="font-black text-lg text-gray-900 mb-2">
+              Heart & Blood Pressure
+            </h3>
+            <p class="text-gray-700 leading-relaxed font-medium text-sm">
+              Monitor cardiovascular health with real-time metrics and AI
+              insights for comprehensive heart care.
+            </p>
+          </div>
+
+          <!-- Lungs -->
+          <div class="feature-card p-6 rounded-3xl shadow-2xl">
+            <i class="fas fa-lungs text-teal-500 text-3xl mb-3 icon-bounce"></i>
+            <h3 class="font-black text-lg text-gray-900 mb-2">Lung Health</h3>
+            <p class="text-gray-700 leading-relaxed font-medium text-sm">
+              Track lung capacity and respiratory patterns with precision
+              analytics and intelligent monitoring.
+            </p>
+          </div>
+
+          <!-- Glucose -->
+          <div class="feature-card p-6 rounded-3xl shadow-2xl">
+            <i class="fas fa-tint text-amber-500 text-3xl mb-3 icon-bounce"></i>
+            <h3 class="font-black text-lg text-gray-900 mb-2">
+              Blood Sugar Trends
+            </h3>
+            <p class="text-gray-700 leading-relaxed font-medium text-sm">
+              Stay informed about glucose fluctuations with smart tracking
+              tools and predictive health insights.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enhanced Login Card -->
+      <div class="glass-card rounded-3xl p-8 shadow-2xl hover-lift magnetic relative overflow-hidden animate-slide-up"
+        style="animation-delay: 0.3s">
+        <!-- Animated background pattern -->
+        <div class="absolute inset-0 opacity-15">
+          <div
+            class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-green-400/40 via-transparent to-emerald-400/40 animate-gradient-xy">
+          </div>
+        </div>
+
+        <div class="relative z-10">
+          <div class="text-center mb-8">
+            <h2 class="text-3xl font-black font-display text-gray-900 mb-3 text-3d">
+              LOG IN
+            </h2>
+            <p class="text-gray-700 font-bold">
+              Access your health dashboard
+            </p>
+          </div>
+
+          <form class="space-y-6" method="POST">
+            {% csrf_token %}
+
+            {% if error %}
+            <div
+              class="w-full px-4 py-3 rounded-xl bg-red-100 border border-red-300 text-red-700 font-semibold shadow-sm">
+              {{ error }}
+            </div>
+            {% endif %}
+
+            <div class="space-y-3">
+              <label for="Username" class="block text-sm font-black text-gray-800 flex items-center gap-2">
+                <i class="fas fa-envelope text-purple-600"></i>
+                Username
+              </label>
+              <input id="uname" type="text" name="uname" placeholder="Username"
+                class="w-full px-6 py-4 rounded-2xl bg-white/95 border-2 border-gray-300 text-gray-900 placeholder-gray-500 focus:outline-none input-glow focus:border-green-500 shadow-xl transition-all duration-400 hover:shadow-2xl font-semibold" />
+            </div>
+
+            <div class="space-y-3">
+              <div class="flex justify-between items-center">
+                <label for="password" class="text-sm font-black text-gray-800 flex items-center gap-2">
+                  <i class="fas fa-lock text-red-600"></i>
+                  Password
+                </label>
+                <a href="#"
+                  class="text-sm text-green-600 hover:text-green-700 font-black transition-colors hover:underline">
+                  Forgot Password?
+                </a>
+              </div>
+              <input id="password" type="password" name="password" placeholder="••••••••••••"
+                class="w-full px-6 py-4 rounded-2xl bg-white/95 border-2 border-gray-300 text-gray-900 placeholder-gray-500 focus:outline-none input-glow focus:border-green-500 shadow-xl transition-all duration-400 hover:shadow-2xl font-semibold" />
+            </div>
+
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <input id="remember" type="checkbox"
+                  class="w-5 h-5 accent-green-600 rounded-lg focus:ring-2 focus:ring-green-500" />
+                <label for="remember" class="text-sm font-black text-gray-800">
+                  Remember me for 30 days
+                </label>
+              </div>
+            </div>
+
+            <button type="submit"
+              class="w-full py-4 px-8 rounded-2xl font-black text-white text-lg btn-gradient shadow-2xl hover:shadow-3xl transition-all duration-400 relative overflow-hidden group">
+              <span class="relative z-10 flex items-center justify-center gap-2">
+                <i class="fas fa-sign-in-alt"></i>
+                CONTINUE TO DASHBOARD
+              </span>
+            </button>
+          </form>
+
+          <p class="text-xs text-gray-700 mt-6 text-center leading-relaxed font-medium">
+            By continuing, you agree to our
+            <a href="#" class="underline hover:text-green-600 transition-colors font-bold">Terms of Service</a>
+            and
+            <a href="#" class="underline hover:text-green-600 transition-colors font-bold">Privacy Policy</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Enhanced Footer -->
+  <footer
+    class="py-6 px-6 text-gray-800 text-sm flex flex-col md:flex-row justify-between items-center border-t-2 border-gray-400 bg-white/95 backdrop-blur-md shadow-inner space-y-4 md:space-y-0">
+    <div class="flex items-center">
+      <p class="font-black">
+        ©️ <span id="year"></span> Preventra Health Technologies
+      </p>
+    </div>
+    <nav class="flex gap-6 font-black">
+      <a href="#" class="hover:text-green-600 transition-colors hover:underline flex items-center gap-1">
+        <i class="fas fa-headset text-xs"></i>
+        Support
+      </a>
+      <a href="#" class="hover:text-green-600 transition-colors hover:underline flex items-center gap-1">
+        <i class="fas fa-user-shield text-xs"></i>
+        Privacy
+      </a>
+      <a href="#" class="hover:text-green-600 transition-colors hover:underline flex items-center gap-1">
+        <i class="fas fa-chart-line text-xs"></i>
+        Status
+      </a>
+    </nav>
+  </footer>
 
 
-        <button type="submit">Login</button>
-    </form>
-
-    <p>Don't have an account? <a href="/">Sign up here</a></p>
+   
 </body>
+
 </html>

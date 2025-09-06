@@ -36,5 +36,11 @@
     <button type="submit">Submit</button>
 </form>
 
+{% if success %}
+  <div class="alert alert-success" role="alert">
+    {{ success }}
+  </div>
+{% endif %}
+
 </body>
 </html>
