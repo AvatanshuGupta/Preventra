@@ -1,0 +1,130 @@
+
+      /* Premium 3D Text Effects */
+      .text-3d {
+        text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb,
+          0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, 0.1),
+          0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3),
+          0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25),
+          0 10px 10px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .text-neon {
+        text-shadow: 0 0 5px currentColor, 0 0 10px currentColor,
+          0 0 15px currentColor, 0 0 20px currentColor, 0 0 35px currentColor,
+          0 0 40px currentColor;
+      }
+
+      .text-gradient-animated {
+        background: linear-gradient(
+          45deg,
+          #87CEEB,
+          #4682B4,
+          #5F9EA0,
+          #87CEEB,
+          #6495ED,
+          #87CEEB
+        );
+        background-size: 400% 400%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: gradient-xy 4s ease infinite;
+      }
+
+      .text-shimmer {
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.4),
+          transparent
+        );
+        background-size: 200% 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        animation: text-shine 2s linear infinite;
+      }
+
+      /* Glassmorphism Card */
+      .glass-card {
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      }
+
+      /* Hover Effects */
+      .hover-lift {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      
+      .hover-lift:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Magnetic Effect */
+      .magnetic {
+        transition: transform 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+      }
+
+      /* Particle System */
+      .particle {
+        position: absolute;
+        background: radial-gradient(circle, rgba(135, 206, 235, 0.8) 0%, transparent 70%);
+        border-radius: 50%;
+        pointer-events: none;
+        animation: sparkle 2s ease-in-out infinite;
+      }
+
+      /* Password Strength Indicator */
+      .password-strength {
+        height: 4px;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+      }
+
+      .strength-weak { background: #ef4444; width: 25%; }
+      .strength-fair { background: #f59e0b; width: 50%; }
+      .strength-good { background: #3b82f6; width: 75%; }
+      .strength-strong { background: #10b981; width: 100%; }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(45deg, #87CEEB, #4682B4);
+        border-radius: 4px;
+      }
+
+      /* Fixed Header Styling - Prevents blur issues */
+      .fixed-header {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        will-change: transform;
+      }
+
+      /* Prevent content from blurring behind header */
+      .main-content {
+        padding-top: 80px;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Reduced Motion */
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }

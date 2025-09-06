@@ -1,5 +1,1251 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Preventra — Heart Health</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              display: ['Manrope', 'sans-serif'],
+            },
+            colors: {
+              brand1: '#87CEEB',
+              brand2: '#B0E0E6', 
+              brand3: '#E0F6FF',
+            },
+            animation: {
+              'gradient-x': 'gradient-x 6s ease infinite',
+              'gradient-y': 'gradient-y 8s ease infinite',
+              'gradient-xy': 'gradient-xy 10s ease infinite',
+              float: 'float 6s ease-in-out infinite',
+              'float-delayed': 'float 6s ease-in-out infinite 2s',
+              'pulse-glow': 'pulse-glow 3s ease-in-out infinite',
+              shimmer: 'shimmer 2.5s linear infinite',
+              'bounce-slow': 'bounce 3s ease-in-out infinite',
+              wiggle: 'wiggle 1s ease-in-out infinite',
+              'neon-pulse': 'neon-pulse 2s ease-in-out infinite alternate',
+              'text-shine': 'text-shine 3s linear infinite',
+              morph: 'morph 8s ease-in-out infinite',
+              orbit: 'orbit 20s linear infinite',
+              sparkle: 'sparkle 1.5s ease-in-out infinite',
+              'slide-up': 'slide-up 0.6s ease-out',
+              'fade-in': 'fade-in 0.8s ease-out',
+              'slide-down': 'slide-down 0.4s ease-out',
+            },
+            keyframes: {
+              'gradient-x': {
+                '0%, 100%': { backgroundPosition: '0% 50%' },
+                '50%': { backgroundPosition: '100% 50%' },
+              },
+              'gradient-y': {
+                '0%, 100%': { backgroundPosition: '50% 0%' },
+                '50%': { backgroundPosition: '50% 100%' },
+              },
+              'gradient-xy': {
+                '0%, 100%': { backgroundPosition: '0% 0%' },
+                '25%': { backgroundPosition: '100% 0%' },
+                '50%': { backgroundPosition: '100% 100%' },
+                '75%': { backgroundPosition: '0% 100%' },
+              },
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-12px)' },
+              },
+              'pulse-glow': {
+                '0%, 100%': {
+                  filter: 'drop-shadow(0 0 5px rgba(135, 206, 235, 0.3))',
+                  transform: 'scale(1)',
+                },
+                '50%': {
+                  filter: 'drop-shadow(0 0 20px rgba(135, 206, 235, 0.8))',
+                  transform: 'scale(1.05)',
+                },
+              },
+              shimmer: {
+                '0%': { transform: 'translateX(-100%)' },
+                '100%': { transform: 'translateX(100%)' },
+              },
+              'bounce-slow': {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-8px)' },
+              },
+              wiggle: {
+                '0%, 100%': { transform: 'rotate(0deg)' },
+                '25%': { transform: 'rotate(1deg)' },
+                '75%': { transform: 'rotate(-1deg)' },
+              },
+              'neon-pulse': {
+                '0%': {
+                  textShadow:
+                    '0 0 5px #87CEEB, 0 0 10px #87CEEB, 0 0 15px #87CEEB',
+                  filter: 'brightness(1)',
+                },
+                '100%': {
+                  textShadow:
+                    '0 0 10px #87CEEB, 0 0 20px #87CEEB, 0 0 30px #87CEEB',
+                  filter: 'brightness(1.2)',
+                },
+              },
+              'text-shine': {
+                '0%': { backgroundPosition: '-200% center' },
+                '100%': { backgroundPosition: '200% center' },
+              },
+              morph: {
+                '0%, 100%': { borderRadius: '50% 20% 50% 20%' },
+                '25%': { borderRadius: '20% 50% 20% 50%' },
+                '50%': { borderRadius: '50% 50% 20% 20%' },
+                '75%': { borderRadius: '20% 20% 50% 50%' },
+              },
+              orbit: {
+                '0%': {
+                  transform: 'rotate(0deg) translateX(100px) rotate(0deg)',
+                },
+                '100%': {
+                  transform: 'rotate(360deg) translateX(100px) rotate(-360deg)',
+                },
+              },
+              sparkle: {
+                '0%, 100%': { opacity: '0', transform: 'scale(0)' },
+                '50%': { opacity: '1', transform: 'scale(1)' },
+              },
+              'slide-up': {
+                '0%': { transform: 'translateY(30px)', opacity: '0' },
+                '100%': { transform: 'translateY(0)', opacity: '1' },
+              },
+              'fade-in': {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              },
+              'slide-down': {
+                '0%': { transform: 'translateY(-20px)', opacity: '0' },
+                '100%': { transform: 'translateY(0)', opacity: '1' },
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /* Premium 3D Text Effects */
+      .text-3d {
+        text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb,
+          0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, 0.1),
+          0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3),
+          0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25),
+          0 10px 10px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .text-gradient-animated {
+        background: linear-gradient(
+          45deg,
+          #87CEEB,
+          #4682B4,
+          #5F9EA0,
+          #87CEEB,
+          #6495ED,
+          #87CEEB
+        );
+        background-size: 400% 400%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: gradient-xy 4s ease infinite;
+      }
+
+      /* Enhanced Glass Effect */
+      .glass-card {
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      }
+
+      .hover-lift {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .hover-lift:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Fixed Header Styling */
+      .fixed-header {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        will-change: transform;
+      }
+
+      /* Main content padding */
+      .main-content {
+        padding-top: 80px;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Particle Animation */
+      .particle {
+        position: absolute;
+        background: radial-gradient(circle, rgba(135, 206, 235, 0.8) 0%, transparent 70%);
+        border-radius: 50%;
+        pointer-events: none;
+        animation: sparkle 2s ease-in-out infinite;
+      }
+
+      /* Chart Cards */
+      .chart-card {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+      }
+
+      /* Input styling */
+      .health-input {
+        background: rgba(255, 255, 255, 0.9);
+        border: 2px solid rgba(135, 206, 235, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .health-input:focus {
+        border-color: #87CEEB;
+        box-shadow: 0 0 0 3px rgba(135, 206, 235, 0.2);
+        background: rgba(255, 255, 255, 1);
+      }
+
+      /* Button styling */
+      .btn-add {
+        background: linear-gradient(135deg, #32cd32 0%, #228b22 50%, #1e7e1e 100%);
+        box-shadow: 0 4px 15px rgba(50, 205, 50, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .btn-add:hover {
+        box-shadow: 0 6px 20px rgba(50, 205, 50, 0.4);
+        transform: translateY(-2px);
+      }
+
+      /* Risk indicator */
+      .risk-low { color: #10b981; }
+      .risk-medium { color: #f59e0b; }
+      .risk-high { color: #ef4444; }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(45deg, #87CEEB, #4682B4);
+        border-radius: 4px;
+      }
+
+      /* Reduced Motion */
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="min-h-screen bg-gradient-to-b from-brand1 via-brand2 to-brand3 flex flex-col overflow-x-hidden animate-fade-in"
+  >
+    <!-- Floating Particles Background -->
+    <div id="particles" class="fixed inset-0 pointer-events-none z-0"></div>
+
+    <!-- Enhanced Header -->
+    <header
+      class="w-full py-4 px-6 flex items-center justify-between fixed-header fixed top-0 left-0 right-0"
+    >
+      <div class="flex items-center gap-3">
+        <img
+          src="logo.jpg"
+          alt="Preventra Logo"
+          class="w-10 h-10 drop-shadow-xl animate-pulse-glow"
+        />
+        <span
+          class="text-6xl md:text-5xl font-black font-display text-3d text-gradient-animated"
+        >
+          PREVENTRA
+        </span>
+      </div>
+      
+      <!-- Navigation -->
+      <div class="flex items-center gap-4">
+        <a href="home_dashboard_final.html" class="text-gray-700 hover:text-blue-600 font-semibold transition-colors">
+          <i class="fas fa-home mr-2"></i>Home
+        </a>
+        <div class="text-right">
+          <p class="text-sm font-semibold text-gray-800">NILOY ROY</p>
+        </div>
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center border-2 border-white shadow-lg">
+          <i class="fas fa-user text-white text-lg"></i>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 px-6 relative main-content">
+      <div class="max-w-7xl mx-auto space-y-8">
+        <!-- Page Header -->
+        <div class="text-center mb-6 animate-slide-down">
+          <h1 class="text-3xl md:text-4xl font-black font-display leading-tight text-3d text-gradient-animated mb-3">
+            Heart Health Dashboard
+          </h1>
+          <p class="text-base text-gray-700 max-w-2xl mx-auto">
+            Monitor your cardiovascular health with real-time tracking and insights.
+          </p>
+        </div>
+
+        <!-- Basic Health Data Form -->
+        <div class="glass-card rounded-2xl p-6 shadow-xl animate-slide-up" style="animation-delay: 0.1s">
+          <h3 class="text-lg font-black text-gray-900 mb-4">
+            <i class="fas fa-user-md text-blue-500 mr-2"></i>
+            Basic Health Information
+          </h3>
+          
+          <form id="basicHealthForm" class="space-y-4">
+            <div class="grid md:grid-cols-3 gap-4">
+              <div class="relative">
+                <label for="weight" class="block text-sm font-semibold text-gray-700 mb-1">
+                  <i class="fas fa-weight text-blue-500 mr-1"></i>
+                  Weight (kg)
+                </label>
+                <input
+                  type="number"
+                  step="0.1"
+                  id="weight"
+                  name="weight"
+                  placeholder="65.5"
+                  class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                  required
+                />
+              </div>
+              
+              <div class="relative">
+                <label for="height" class="block text-sm font-semibold text-gray-700 mb-1">
+                  <i class="fas fa-ruler-vertical text-purple-500 mr-1"></i>
+                  Height (cm)
+                </label>
+                <input
+                  type="number"
+                  step="0.1"
+                  id="height"
+                  name="height"
+                  placeholder="170.5"
+                  class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                  required
+                />
+              </div>
+              
+              <div class="relative">
+                <label for="heart_rate" class="block text-sm font-semibold text-gray-700 mb-1">
+                  <i class="fas fa-heartbeat text-red-500 mr-1"></i>
+                  Heart Rate (bpm)
+                </label>
+                <input
+                  type="number"
+                  id="heart_rate"
+                  name="heart_rate"
+                  placeholder="72"
+                  class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                  required
+                />
+              </div>
+            </div>
+            
+            <div class="flex justify-center mt-4">
+              <button
+                type="submit"
+                class="px-6 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold rounded-lg hover:from-blue-600 hover:to-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+              >
+                <i class="fas fa-save mr-2"></i>Save Basic Data
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Advanced Health Data Form -->
+        <div class="glass-card rounded-2xl p-6 shadow-xl animate-slide-up" style="animation-delay: 0.15s">
+          <h3 class="text-lg font-black text-gray-900 mb-4">
+            <i class="fas fa-chart-line text-green-500 mr-2"></i>
+            Advanced Health Metrics
+          </h3>
+          
+          <form id="advancedHealthForm" class="space-y-4">
+            <div class="grid md:grid-cols-2 gap-4">
+                          
+              <div class="relative">
+                <label for="hba1c_advanced" class="block text-sm font-semibold text-gray-700 mb-1">
+                  <i class="fas fa-flask text-purple-500 mr-1"></i>
+                  HbA1c (%)
+                </label>
+                <input
+                  type="number"
+                  step="0.1"
+                  id="hba1c_advanced"
+                  name="hba1c_level"
+                  placeholder="5.7"
+                  class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                  required
+                />
+              </div>
+              
+              <div class="relative">
+                <label for="blood_glucose_advanced" class="block text-sm font-semibold text-gray-700 mb-1">
+                  <i class="fas fa-eye-dropper text-green-500 mr-1"></i>
+                  Blood Glucose (mg/dL)
+                </label>
+                <input
+                  type="number"
+                  id="blood_glucose_advanced"
+                  name="blood_glucose_level"
+                  placeholder="100"
+                  class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                  required
+                />
+              </div>
+            </div>
+            
+            <div class="flex justify-center mt-4">
+              <button
+                type="submit"
+                class="px-6 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold rounded-lg hover:from-green-600 hover:to-green-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+              >
+                <i class="fas fa-paper-plane mr-2"></i>Submit Advanced Data
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Blood Pressure Input Form -->
+        <div class="glass-card rounded-2xl p-6 shadow-xl animate-slide-up" style="animation-delay: 0.2s">
+          <h3 class="text-lg font-black text-gray-900 mb-4">
+            <i class="fas fa-heartbeat text-red-500 mr-2"></i>
+            Add New BP Reading
+          </h3>
+          <div class="grid md:grid-cols-3 gap-4">
+            <div>
+              <label for="systolic" class="block text-sm font-semibold text-gray-700 mb-1">
+                Systolic (mmHg)
+              </label>
+              <input
+                type="number"
+                id="systolic"
+                placeholder="120"
+                class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+              />
+            </div>
+            <div>
+              <label for="diastolic" class="block text-sm font-semibold text-gray-700 mb-1">
+                Diastolic (mmHg)
+              </label>
+              <input
+                type="number"
+                id="diastolic"
+                placeholder="80"
+                class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+              />
+            </div>
+            <div class="flex items-end">
+              <button
+                onclick="addReading()"
+                class="w-full px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold rounded-lg hover:from-green-600 hover:to-green-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+              >
+                <i class="fas fa-plus mr-2"></i>Add Reading
+              </button>
+            </div>
+          </div>
+          <div class="mt-4 flex justify-between">
+            <span class="text-sm text-gray-600">Total readings: <span id="total-readings">0</span></span>
+            <button onclick="clearAllData()" class="text-sm text-red-600 hover:text-red-800 font-semibold">
+              <i class="fas fa-trash mr-1"></i>Clear All Data
+            </button>
+          </div>
+        </div>
+
+        <!-- Current Reading Display -->
+        <div class="glass-card rounded-2xl p-6 shadow-xl animate-slide-up" style="animation-delay: 0.25s">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-lg font-black text-gray-900">Latest Blood Pressure</h3>
+            <span id="trend-indicator" class="text-xs font-semibold px-2 py-1 rounded-full bg-gray-100 text-gray-600">
+              No data yet
+            </span>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="text-2xl font-black text-gray-900" id="current-reading">
+              -- / -- mmHg
+            </div>
+            <div class="text-right">
+              <span id="bp-status" class="text-base font-bold px-3 py-1 rounded-full bg-gray-100 text-gray-600">
+                No reading
+              </span>
+            </div>
+          </div>
+          <div class="mt-3 text-sm text-gray-600" id="reading-timestamp">
+            No readings recorded yet
+          </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="grid lg:grid-cols-2 gap-6">
+          <!-- Blood Pressure Trends Chart -->
+          <div class="chart-card rounded-2xl p-6 shadow-xl animate-slide-up" style="animation-delay: 0.3s">
+            <h3 class="text-lg font-black text-gray-900 mb-4">
+              <i class="fas fa-chart-line text-blue-500 mr-2"></i>
+              Blood Pressure History
+            </h3>
+            <div class="mb-3">
+              <div class="text-base font-semibold text-gray-700">Recent Readings</div>
+              <div class="text-xl font-black text-gray-900" id="trends-current">-- / -- mmHg</div>
+              <div class="text-xs text-gray-600" id="trends-period">Historical Tracking</div>
+            </div>
+            <div class="relative h-56 w-full">
+              <canvas id="trendsChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Risk Assessment Chart -->
+          <div class="chart-card rounded-2xl p-6 shadow-xl animate-slide-up" style="animation-delay: 0.4s">
+            <h3 class="text-lg font-black text-gray-900 mb-4">
+              <i class="fas fa-exclamation-triangle text-amber-500 mr-2"></i>
+              Risk Assessment
+            </h3>
+            <div class="mb-3">
+              <div class="text-base font-semibold text-gray-700">Heart Risk Analysis</div>
+              <div class="text-xl font-black text-gray-600" id="risk-current">No data</div>
+              <div class="text-xs text-gray-600" id="risk-trend">Risk Trend Analysis</div>
+            </div>
+            <div class="relative h-56 w-full">
+              <canvas id="riskChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Summary Statistics -->
+        <div class="grid md:grid-cols-4 gap-4">
+          <div class="glass-card rounded-xl p-4 text-center">
+            <div class="text-2xl font-black text-blue-600" id="avg-systolic">--</div>
+            <div class="text-sm text-gray-600">Avg Systolic</div>
+          </div>
+          <div class="glass-card rounded-xl p-4 text-center">
+            <div class="text-2xl font-black text-green-600" id="avg-diastolic">--</div>
+            <div class="text-sm text-gray-600">Avg Diastolic</div>
+          </div>
+          <div class="glass-card rounded-xl p-4 text-center">
+            <div class="text-2xl font-black text-orange-600" id="avg-risk">--%</div>
+            <div class="text-sm text-gray-600">Avg Risk</div>
+          </div>
+          <div class="glass-card rounded-xl p-4 text-center">
+            <div class="text-2xl font-black text-purple-600" id="reading-streak">0</div>
+            <div class="text-sm text-gray-600">Day Streak</div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Enhanced Footer -->
+    <footer
+      class="py-4 px-6 text-gray-700 text-xs flex justify-between border-t border-gray-300 bg-white/80 backdrop-filter backdrop-blur-md shadow-inner relative z-10 mt-6"
+    >
+      <p class="font-medium">©️ <span id="year"></span> Preventra Health Technologies</p>
+      <nav class="flex gap-6 font-semibold">
+        <a
+          href="#"
+          class="hover:text-blue-600 transition-colors hover:underline"
+          >Support</a
+        >
+        <a
+          href="#"
+          class="hover:text-blue-600 transition-colors hover:underline"
+          >Privacy</a
+        >
+        <a
+          href="#"
+          class="hover:text-blue-600 transition-colors hover:underline"
+          >Status</a
+        >
+      </nav>
+    </footer>
+
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Enhanced data structure for persistent storage
+      let healthData = {
+        readings: [], // Array of {date, systolic, diastolic, risk, timestamp}
+        basicHealth: {},
+        advancedHealth: {}
+      };
+
+      // Chart instances
+      let trendsChart = null;
+      let riskChart = null;
+
+      // Data storage functions (using memory since localStorage is not supported)
+      function saveData() {
+        // In a real application, this would save to localStorage or send to server
+        console.log('Data saved:', healthData);
+      }
+
+      function loadData() {
+        // In a real application, this would load from localStorage or server
+        // For now, we'll start with empty data but maintain it during the session
+        console.log('Data loaded:', healthData);
+      }
+
+      // Particle System
+      function createParticles() {
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 30;
+
+        for (let i = 0; i < particleCount; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'particle';
+
+          const size = Math.random() * 3 + 1;
+          particle.style.width = size + 'px';
+          particle.style.height = size + 'px';
+          particle.style.left = Math.random() * 100 + '%';
+          particle.style.top = Math.random() * 100 + '%';
+
+          particle.style.animationDelay = Math.random() * 2 + 's';
+          particle.style.animationDuration = Math.random() * 3 + 2 + 's';
+
+          particlesContainer.appendChild(particle);
+        }
+      }
+
+      // Calculate risk percentage based on blood pressure
+      function calculateRisk(systolic, diastolic) {
+        let baseRisk = 0;
+        
+        if (systolic < 120 && diastolic < 80) {
+          baseRisk = 15; // Normal - low risk
+        } else if (systolic < 130 && diastolic < 80) {
+          baseRisk = 35; // Elevated - moderate risk
+        } else if ((systolic >= 130 && systolic < 140) || (diastolic >= 80 && diastolic < 90)) {
+          baseRisk = 55; // Stage 1 hypertension - high risk
+        } else if (systolic >= 140 || diastolic >= 90) {
+          baseRisk = 75; // Stage 2 hypertension - very high risk
+        } else {
+          baseRisk = 90; // Crisis - critical risk
+        }
+        
+        // Add some variation to make it more realistic
+        return Math.min(100, baseRisk + Math.floor(Math.random() * 10 - 5));
+      }
+
+      // Add new reading function with proper data persistence
+      function addReading() {
+        const systolic = document.getElementById('systolic').value;
+        const diastolic = document.getElementById('diastolic').value;
+        
+        if (systolic && diastolic) {
+          const systolicNum = parseInt(systolic);
+          const diastolicNum = parseInt(diastolic);
+          const risk = calculateRisk(systolicNum, diastolicNum);
+          const now = new Date();
+          
+          // Create new reading object
+          const newReading = {
+            date: now.toLocaleDateString(),
+            time: now.toLocaleTimeString(),
+            systolic: systolicNum,
+            diastolic: diastolicNum,
+            risk: risk,
+            timestamp: now.getTime()
+          };
+          
+          // Add to readings array
+          healthData.readings.push(newReading);
+          
+          // Keep only last 30 readings for performance
+          if (healthData.readings.length > 30) {
+            healthData.readings.shift();
+          }
+          
+          // Update displays
+          updateCurrentReading(systolicNum, diastolicNum, now);
+          updateCharts();
+          updateStatistics();
+          saveData();
+          
+          // Clear inputs
+          document.getElementById('systolic').value = '';
+          document.getElementById('diastolic').value = '';
+          
+          showSuccessMessage(`Blood pressure reading added: ${systolicNum}/${diastolicNum} mmHg`);
+        } else {
+          alert('Please enter both systolic and diastolic values.');
+        }
+      }
+
+      // Update current reading display with timestamp
+      function updateCurrentReading(systolic, diastolic, timestamp) {
+        document.getElementById('current-reading').textContent = `${systolic}/${diastolic} mmHg`;
+        document.getElementById('trends-current').textContent = `${systolic}/${diastolic} mmHg`;
+        document.getElementById('reading-timestamp').textContent = 
+          `Last updated: ${timestamp.toLocaleDateString()} at ${timestamp.toLocaleTimeString()}`;
+        updateBPStatus(systolic, diastolic);
+        updateTrendIndicator();
+      }
+
+      // Update blood pressure status
+      function updateBPStatus(systolic, diastolic) {
+        const statusElement = document.getElementById('bp-status');
+        const riskElement = document.getElementById('risk-current');
+        let status, className, riskClass, riskLevel;
+        
+        if (systolic < 120 && diastolic < 80) {
+          status = 'Normal';
+          className = 'bg-green-100 text-green-800';
+          riskClass = 'risk-low';
+          riskLevel = 'Low Risk';
+        } else if (systolic < 130 && diastolic < 80) {
+          status = 'Elevated';
+          className = 'bg-yellow-100 text-yellow-800';
+          riskClass = 'risk-medium';
+          riskLevel = 'Moderate Risk';
+        } else if ((systolic >= 130 && systolic < 140) || (diastolic >= 80 && diastolic < 90)) {
+          status = 'High Stage 1';
+          className = 'bg-orange-100 text-orange-800';
+          riskClass = 'risk-medium';
+          riskLevel = 'High Risk';
+        } else if (systolic >= 140 || diastolic >= 90) {
+          status = 'High Stage 2';
+          className = 'bg-red-100 text-red-800';
+          riskClass = 'risk-high';
+          riskLevel = 'Very High Risk';
+        } else {
+          status = 'Crisis';
+          className = 'bg-red-200 text-red-900';
+          riskClass = 'risk-high';
+          riskLevel = 'Critical Risk';
+        }
+        
+        statusElement.textContent = status;
+        statusElement.className = `text-base font-bold px-3 py-1 rounded-full ${className}`;
+        
+        riskElement.textContent = riskLevel;
+        riskElement.className = `text-xl font-black ${riskClass}`;
+      }
+
+      // Update trend indicator
+      function updateTrendIndicator() {
+        if (healthData.readings.length < 2) {
+          document.getElementById('trend-indicator').textContent = 'No trend data';
+          document.getElementById('trend-indicator').className = 'text-xs font-semibold px-2 py-1 rounded-full bg-gray-100 text-gray-600';
+          return;
+        }
+
+        const latest = healthData.readings[healthData.readings.length - 1];
+        const previous = healthData.readings[healthData.readings.length - 2];
+        
+        const latestAvg = (latest.systolic + latest.diastolic) / 2;
+        const previousAvg = (previous.systolic + previous.diastolic) / 2;
+        
+        const change = ((latestAvg - previousAvg) / previousAvg * 100).toFixed(1);
+        const indicator = document.getElementById('trend-indicator');
+        
+        if (change > 2) {
+          indicator.textContent = `↑ +${change}%`;
+          indicator.className = 'text-xs font-semibold px-2 py-1 rounded-full bg-red-100 text-red-800';
+        } else if (change < -2) {
+          indicator.textContent = `↓ ${change}%`;
+          indicator.className = 'text-xs font-semibold px-2 py-1 rounded-full bg-green-100 text-green-800';
+        } else {
+          indicator.textContent = 'Stable';
+          indicator.className = 'text-xs font-semibold px-2 py-1 rounded-full bg-blue-100 text-blue-800';
+        }
+      }
+
+      // Initialize charts with proper data handling
+      function initCharts() {
+        // Destroy existing charts
+        if (trendsChart) trendsChart.destroy();
+        if (riskChart) riskChart.destroy();
+
+        // Prepare data for charts
+        const labels = healthData.readings.map(reading => 
+          new Date(reading.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+        );
+        const systolicData = healthData.readings.map(reading => reading.systolic);
+        const diastolicData = healthData.readings.map(reading => reading.diastolic);
+        const riskData = healthData.readings.map(reading => reading.risk);
+
+        // Blood Pressure Trends Chart
+        const trendsCtx = document.getElementById('trendsChart').getContext('2d');
+        trendsChart = new Chart(trendsCtx, {
+          type: 'line',
+          data: {
+            labels: labels.length > 0 ? labels : ['No Data'],
+            datasets: [{
+              label: 'Systolic',
+              data: systolicData.length > 0 ? systolicData : [0],
+              borderColor: 'rgba(239, 68, 68, 1)',
+              backgroundColor: 'rgba(239, 68, 68, 0.1)',
+              borderWidth: 3,
+              fill: false,
+              tension: 0.4,
+              pointBackgroundColor: 'rgba(239, 68, 68, 1)',
+              pointBorderColor: '#ffffff',
+              pointBorderWidth: 2,
+              pointRadius: 5,
+              pointHoverRadius: 7
+            }, {
+              label: 'Diastolic',
+              data: diastolicData.length > 0 ? diastolicData : [0],
+              borderColor: 'rgba(59, 130, 246, 1)',
+              backgroundColor: 'rgba(59, 130, 246, 0.1)',
+              borderWidth: 3,
+              fill: false,
+              tension: 0.4,
+              pointBackgroundColor: 'rgba(59, 130, 246, 1)',
+              pointBorderColor: '#ffffff',
+              pointBorderWidth: 2,
+              pointRadius: 5,
+              pointHoverRadius: 7
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+              intersect: false,
+              mode: 'index'
+            },
+            plugins: {
+              legend: {
+                display: true,
+                position: 'top',
+                labels: {
+                  usePointStyle: true,
+                  padding: 20,
+                  font: {
+                    weight: 'bold'
+                  }
+                }
+              },
+              tooltip: {
+                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                titleColor: 'white',
+                bodyColor: 'white',
+                borderColor: 'rgba(255, 255, 255, 0.1)',
+                borderWidth: 1,
+                callbacks: {
+                  afterLabel: function(context) {
+                    const reading = healthData.readings[context.dataIndex];
+                    return reading ? `Time: ${reading.time}` : '';
+                  }
+                }
+              }
+            },
+            scales: {
+              x: {
+                grid: {
+                  display: false
+                },
+                ticks: {
+                  color: '#6b7280',
+                  font: {
+                    weight: 'bold'
+                  }
+                }
+              },
+              y: {
+                beginAtZero: false,
+                min: 50,
+                max: 300,
+                grid: {
+                  color: 'rgba(107, 114, 128, 0.1)'
+                },
+                ticks: {
+                  color: '#6b7280',
+                  font: {
+                    weight: 'bold'
+                  },
+                  callback: function(value) {
+                    return value + ' mmHg';
+                  }
+                }
+              }
+            }
+          }
+        });
+
+        // Risk Assessment Chart
+        const riskCtx = document.getElementById('riskChart').getContext('2d');
+        riskChart = new Chart(riskCtx, {
+          type: 'bar',
+          data: {
+            labels: labels.length > 0 ? labels : ['No Data'],
+            datasets: [{
+              label: 'Risk Level (%)',
+              data: riskData.length > 0 ? riskData : [0],
+              backgroundColor: riskData.map(risk => {
+                if (risk < 30) return 'rgba(34, 197, 94, 0.7)';
+                if (risk < 60) return 'rgba(251, 191, 36, 0.7)';
+                return 'rgba(239, 68, 68, 0.7)';
+              }),
+              borderColor: riskData.map(risk => {
+                if (risk < 30) return 'rgba(34, 197, 94, 1)';
+                if (risk < 60) return 'rgba(251, 191, 36, 1)';
+                return 'rgba(239, 68, 68, 1)';
+              }),
+              borderWidth: 2,
+              borderRadius: 4
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+              intersect: false,
+              mode: 'index'
+            },
+            plugins: {
+              legend: {
+                display: false
+              },
+              tooltip: {
+                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                titleColor: 'white',
+                bodyColor: 'white',
+                borderColor: 'rgba(255, 255, 255, 0.1)',
+                borderWidth: 1,
+                callbacks: {
+                  label: function(context) {
+                    const reading = healthData.readings[context.dataIndex];
+                    return [
+                      `Risk Level: ${context.parsed.y}%`,
+                      reading ? `BP: ${reading.systolic}/${reading.diastolic}` : '',
+                      reading ? `Time: ${reading.time}` : ''
+                    ];
+                  }
+                }
+              }
+            },
+            scales: {
+              x: {
+                grid: {
+                  display: false
+                },
+                ticks: {
+                  color: '#6b7280',
+                  font: {
+                    weight: 'bold'
+                  }
+                }
+              },
+              y: {
+                beginAtZero: true,
+                max: 100,
+                grid: {
+                  color: 'rgba(107, 114, 128, 0.1)'
+                },
+                ticks: {
+                  color: '#6b7280',
+                  font: {
+                    weight: 'bold'
+                  },
+                  callback: function(value) {
+                    return value + '%';
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+
+      // Update charts with new data
+      function updateCharts() {
+        if (!trendsChart || !riskChart) {
+          initCharts();
+          return;
+        }
+
+        const labels = healthData.readings.map(reading => 
+          new Date(reading.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+        );
+        const systolicData = healthData.readings.map(reading => reading.systolic);
+        const diastolicData = healthData.readings.map(reading => reading.diastolic);
+        const riskData = healthData.readings.map(reading => reading.risk);
+
+        // Update trends chart
+        trendsChart.data.labels = labels.length > 0 ? labels : ['No Data'];
+        trendsChart.data.datasets[0].data = systolicData.length > 0 ? systolicData : [0];
+        trendsChart.data.datasets[1].data = diastolicData.length > 0 ? diastolicData : [0];
+        trendsChart.update('active');
+
+        // Update risk chart with dynamic colors
+        riskChart.data.labels = labels.length > 0 ? labels : ['No Data'];
+        riskChart.data.datasets[0].data = riskData.length > 0 ? riskData : [0];
+        riskChart.data.datasets[0].backgroundColor = riskData.map(risk => {
+          if (risk < 30) return 'rgba(34, 197, 94, 0.7)';
+          if (risk < 60) return 'rgba(251, 191, 36, 0.7)';
+          return 'rgba(239, 68, 68, 0.7)';
+        });
+        riskChart.data.datasets[0].borderColor = riskData.map(risk => {
+          if (risk < 30) return 'rgba(34, 197, 94, 1)';
+          if (risk < 60) return 'rgba(251, 191, 36, 1)';
+          return 'rgba(239, 68, 68, 1)';
+        });
+        riskChart.update('active');
+      }
+
+      // Update statistics
+      function updateStatistics() {
+        const readings = healthData.readings;
+        document.getElementById('total-readings').textContent = readings.length;
+
+        if (readings.length === 0) {
+          document.getElementById('avg-systolic').textContent = '--';
+          document.getElementById('avg-diastolic').textContent = '--';
+          document.getElementById('avg-risk').textContent = '--%';
+          document.getElementById('reading-streak').textContent = '0';
+          return;
+        }
+
+        // Calculate averages
+        const avgSystolic = Math.round(readings.reduce((sum, r) => sum + r.systolic, 0) / readings.length);
+        const avgDiastolic = Math.round(readings.reduce((sum, r) => sum + r.diastolic, 0) / readings.length);
+        const avgRisk = Math.round(readings.reduce((sum, r) => sum + r.risk, 0) / readings.length);
+
+        // Calculate streak (consecutive days with readings)
+        const today = new Date().toDateString();
+        const uniqueDays = [...new Set(readings.map(r => new Date(r.timestamp).toDateString()))];
+        const streak = uniqueDays.length;
+
+        document.getElementById('avg-systolic').textContent = avgSystolic;
+        document.getElementById('avg-diastolic').textContent = avgDiastolic;
+        document.getElementById('avg-risk').textContent = avgRisk + '%';
+        document.getElementById('reading-streak').textContent = streak;
+      }
+
+      // Clear all data function
+      function clearAllData() {
+        if (confirm('Are you sure you want to clear all health data? This action cannot be undone.')) {
+          healthData.readings = [];
+          healthData.basicHealth = {};
+          healthData.advancedHealth = {};
+          
+          document.getElementById('current-reading').textContent = '-- / -- mmHg';
+          document.getElementById('trends-current').textContent = '-- / -- mmHg';
+          document.getElementById('reading-timestamp').textContent = 'No readings recorded yet';
+          document.getElementById('bp-status').textContent = 'No reading';
+          document.getElementById('bp-status').className = 'text-base font-bold px-3 py-1 rounded-full bg-gray-100 text-gray-600';
+          document.getElementById('risk-current').textContent = 'No data';
+          document.getElementById('trend-indicator').textContent = 'No data yet';
+          document.getElementById('trend-indicator').className = 'text-xs font-semibold px-2 py-1 rounded-full bg-gray-100 text-gray-600';
+          
+          updateCharts();
+          updateStatistics();
+          saveData();
+          
+          showSuccessMessage('All health data has been cleared.');
+        }
+      }
+
+      // Health Form Submission Handlers
+      document.getElementById("basicHealthForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData.entries());
+        
+        // Store basic health data
+        healthData.basicHealth = { ...healthData.basicHealth, ...data };
+        saveData();
+        
+        showSuccessMessage("✅ Basic health data saved successfully!");
+        this.reset();
+      });
+      
+      document.getElementById("advancedHealthForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData.entries());
+        
+        // Store advanced health data
+        healthData.advancedHealth = { ...healthData.advancedHealth, ...data };
+        saveData();
+        
+        showSuccessMessage("✅ Advanced health metrics saved successfully!");
+        this.reset();
+      });
+      
+      // Success/Error message functions
+      function showSuccessMessage(message) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'fixed top-20 right-6 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-slide-down';
+        messageDiv.innerHTML = `
+          <div class="flex items-center gap-2">
+            <i class="fas fa-check-circle"></i>
+            <span class="font-semibold">${message}</span>
+          </div>
+        `;
+        
+        document.body.appendChild(messageDiv);
+        
+        setTimeout(() => {
+          messageDiv.remove();
+        }, 4000);
+      }
+
+      // Load data and initialize on page load
+      function initializeApp() {
+        loadData();
+        initCharts();
+        updateStatistics();
+        createParticles();
+
+        // Load most recent reading if available
+        if (healthData.readings.length > 0) {
+          const latest = healthData.readings[healthData.readings.length - 1];
+          updateCurrentReading(latest.systolic, latest.diastolic, new Date(latest.timestamp));
+        }
+      }
+
+      // Add sample data function for testing
+      function addSampleData() {
+        const sampleReadings = [
+          { systolic: 118, diastolic: 78 },
+          { systolic: 122, diastolic: 82 },
+          { systolic: 115, diastolic: 75 },
+          { systolic: 128, diastolic: 85 },
+          { systolic: 120, diastolic: 80 }
+        ];
+
+        sampleReadings.forEach((reading, index) => {
+          const now = new Date();
+          now.setDate(now.getDate() - (sampleReadings.length - 1 - index));
+          
+          const newReading = {
+            date: now.toLocaleDateString(),
+            time: now.toLocaleTimeString(),
+            systolic: reading.systolic,
+            diastolic: reading.diastolic,
+            risk: calculateRisk(reading.systolic, reading.diastolic),
+            timestamp: now.getTime()
+          };
+          
+          healthData.readings.push(newReading);
+        });
+
+        updateCharts();
+        updateStatistics();
+        
+        const latest = healthData.readings[healthData.readings.length - 1];
+        updateCurrentReading(latest.systolic, latest.diastolic, new Date(latest.timestamp));
+        
+        saveData();
+        showSuccessMessage('Sample data added for demonstration!');
+      }
+
+      // Add keyboard shortcuts
+      document.addEventListener('keydown', function(e) {
+        // Ctrl+Enter or Cmd+Enter to add reading
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+          const systolic = document.getElementById('systolic').value;
+          const diastolic = document.getElementById('diastolic').value;
+          if (systolic && diastolic) {
+            addReading();
+          }
+        }
+        
+        // Alt+S for sample data (for testing)
+        if (e.altKey && e.key === 's') {
+          e.preventDefault();
+          addSampleData();
+        }
+      });
+
+      // Auto-save form data as user types (for better UX)
+      const inputs = document.querySelectorAll('input[type="number"]');
+      inputs.forEach(input => {
+        input.addEventListener('input', function() {
+          // Add visual feedback for valid input
+          if (this.value && this.value > 0) {
+            this.style.borderColor = '#10b981';
+            this.style.backgroundColor = '#f0fdf4';
+          } else {
+            this.style.borderColor = '';
+            this.style.backgroundColor = '';
+          }
+        });
+      });
+
+      // Initialize everything when DOM is loaded
+      document.addEventListener('DOMContentLoaded', initializeApp);
+
+      // Sparkle effect on click
+      document.addEventListener('click', (e) => {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'particle';
+        sparkle.style.position = 'fixed';
+        sparkle.style.left = e.clientX + 'px';
+        sparkle.style.top = e.clientY + 'px';
+        sparkle.style.pointerEvents = 'none';
+        sparkle.style.zIndex = '9999';
+        sparkle.style.animation = 'sparkle 0.6s ease-out forwards';
+
+        document.body.appendChild(sparkle);
+
+        setTimeout(() => {
+          sparkle.remove();
+        }, 600);
+      });
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

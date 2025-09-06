@@ -1,11 +1,184 @@
+{% load static %}
+
+
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-</head>
-<body>
-    <h1>Welcome to Dashboard!</h1>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PREVENTRA - Health Information</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="{% static 'core/cs_dashboard.css' %}" />
+    <script src="{% static 'core/js_dashboard.js' %}"></script>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header with PREVENTRA branding -->
+      <div class="header">
+        <div class="logo">
+        <img src="{% static 'logo.jpg' %}" alt="Preventra Logo" class="logo-img">
+
+          <span class="brand-name">PREVENTRA</span>
+        </div>
+      </div>
+
+      <!-- Main content area -->
+      <div class="main-content">
+        <!-- Left side - Welcome section -->
+        <div class="welcome-section">
+          <h1 class="welcome-title">GET STARTED</h1>
+          <p class="welcome-description">
+            Discover the future of wellness. With AI at the core, PREVENTRA
+            helps you track, understand, and improve your health easily.
+          </p>
+
+          <div class="features">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <div class="feature-content">
+                <h3>Smart Analytics</h3>
+                <p>
+                  Get personalized health insights powered by advanced AI
+                  algorithms and machine learning.
+                </p>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-shield-alt"></i>
+              </div>
+              <div class="feature-content">
+                <h3>Secure & Private</h3>
+                <p>
+                  Your health data is protected with enterprise-grade encryption
+                  and privacy controls.
+                </p>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div class="feature-content">
+                <h3>Continuous Monitoring</h3>
+                <p>
+                  Round-the-clock health tracking with instant alerts and
+                  proactive recommendations.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right side - Health form -->
+        <div class="form-section">
+          <div class="form-container">
+            <h2 class="form-title">HEALTH INFORMATION</h2>
+
+            <form method="POST" class="health-form" id="healthForm">
+              {% csrf_token %}
+             
+
+              <div class="form-group">
+                <label for="dob">
+                  <i class="fas fa-calendar-alt"></i>
+                  Date of Birth
+                </label>
+                <input type="date" name="dob" id="dob" required />
+              </div>
+
+              <div class="form-group">
+                <label for="gender">
+                  <i class="fas fa-user"></i>
+                  Gender
+                </label>
+                <select name="gender" id="gender" required>
+                  <option value="">Select Gender</option>
+                  <option value="1">Male</option>
+                  <option value="0">Female</option>
+                </select>
+              </div>
+
+              <div class="form-group checkbox-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" name="hypertension" />
+                  <span class="checkmark"></span>
+                  <i class="fas fa-heartbeat"></i>
+                  Hypertension
+                </label>
+              </div>
+
+              <div class="form-group checkbox-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" name="heart_disease" />
+                  <span class="checkmark"></span>
+                  <i class="fas fa-heart"></i>
+                  Heart Disease
+                </label>
+              </div>
+
+              <div class="form-group checkbox-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" name="ALLERGY" />
+                  <span class="checkmark"></span>
+                  <i class="fas fa-allergies"></i>
+                  Allergy
+                </label>
+              </div>
+
+              <div class="form-group checkbox-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" name="ALCOHOL_CONSUMING" />
+                  <span class="checkmark"></span>
+                  <i class="fas fa-wine-glass"></i>
+                  Alcohol Consuming
+                </label>
+              </div>
+
+              <div class="form-group">
+                <label for="smoking_history">
+                  <i class="fas fa-smoking"></i>
+                  Smoking History
+                </label>
+                <select name="smoking_history" id="smoking_history" required>
+                  <option value="">Select Smoking History</option>
+                  <option value="0.0">Never</option>
+                  <option value="1.0">No Info</option>
+                  <option value="2.0">Ever</option>
+                  <option value="3.0">Former</option>
+                  <option value="4.0">Current</option>
+                </select>
+              </div>
+
+              <div class="form-group terms-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" required />
+                  <span class="checkmark"></span>
+                  I agree to the
+                  <a href="#" class="terms-link">Terms of Service</a> and
+                  <a href="#" class="terms-link">Privacy Policy</a>
+                </label>
+              </div>
+
+              <button type="submit" class="submit-btn">
+                <i class="fas fa-paper-plane"></i>
+                Submit Health Information
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </body>
 </html>

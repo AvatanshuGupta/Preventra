@@ -1,5 +1,1423 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Preventra — Diabetes Health</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              display: ['Manrope', 'sans-serif'],
+            },
+            colors: {
+              brand1: '#87CEEB',
+              brand2: '#87CEEB',
+              brand3: '#98E4D6',
+            },
+            animation: {
+              'gradient-x': 'gradient-x 6s ease infinite',
+              'gradient-y': 'gradient-y 8s ease infinite',
+              'gradient-xy': 'gradient-xy 10s ease infinite',
+              float: 'float 6s ease-in-out infinite',
+              'float-delayed': 'float 6s ease-in-out infinite 2s',
+              'pulse-glow': 'pulse-glow 3s ease-in-out infinite',
+              shimmer: 'shimmer 2.5s linear infinite',
+              'bounce-slow': 'bounce-slow 3s ease-in-out infinite',
+              wiggle: 'wiggle 1s ease-in-out infinite',
+              'neon-pulse': 'neon-pulse 2s ease-in-out infinite alternate',
+              'text-shine': 'text-shine 3s linear infinite',
+              morph: 'morph 8s ease-in-out infinite',
+              orbit: 'orbit 20s linear infinite',
+              sparkle: 'sparkle 1.5s ease-in-out infinite',
+              'slide-up': 'slide-up 0.6s ease-out',
+              'fade-in': 'fade-in 0.8s ease-out',
+              'slide-down': 'slide-down 0.4s ease-out',
+            },
+            keyframes: {
+              'gradient-x': {
+                '0%, 100%': { backgroundPosition: '0% 50%' },
+                '50%': { backgroundPosition: '100% 50%' },
+              },
+              'gradient-y': {
+                '0%, 100%': { backgroundPosition: '50% 0%' },
+                '50%': { backgroundPosition: '50% 100%' },
+              },
+              'gradient-xy': {
+                '0%, 100%': { backgroundPosition: '0% 0%' },
+                '25%': { backgroundPosition: '100% 0%' },
+                '50%': { backgroundPosition: '100% 100%' },
+                '75%': { backgroundPosition: '0% 100%' },
+              },
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-12px)' },
+              },
+              'pulse-glow': {
+                '0%, 100%': {
+                  filter: 'drop-shadow(0 0 8px rgba(50, 205, 50, 0.4))',
+                  transform: 'scale(1)',
+                },
+                '50%': {
+                  filter: 'drop-shadow(0 0 25px rgba(50, 205, 50, 0.9))',
+                  transform: 'scale(1.05)',
+                },
+              },
+              shimmer: {
+                '0%': { transform: 'translateX(-100%)' },
+                '100%': { transform: 'translateX(100%)' },
+              },
+              'bounce-slow': {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-8px)' },
+              },
+              wiggle: {
+                '0%, 100%': { transform: 'rotate(0deg)' },
+                '25%': { transform: 'rotate(1deg)' },
+                '75%': { transform: 'rotate(-1deg)' },
+              },
+              'neon-pulse': {
+                '0%': {
+                  textShadow:
+                    '0 0 5px #32cd32, 0 0 10px #32cd32, 0 0 15px #32cd32',
+                  filter: 'brightness(1)',
+                },
+                '100%': {
+                  textShadow:
+                    '0 0 10px #32cd32, 0 0 20px #32cd32, 0 0 30px #32cd32',
+                  filter: 'brightness(1.2)',
+                },
+              },
+              'text-shine': {
+                '0%': { backgroundPosition: '-200% center' },
+                '100%': { backgroundPosition: '200% center' },
+              },
+              morph: {
+                '0%, 100%': { borderRadius: '50% 20% 50% 20%' },
+                '25%': { borderRadius: '20% 50% 20% 50%' },
+                '50%': { borderRadius: '50% 50% 20% 20%' },
+                '75%': { borderRadius: '20% 20% 50% 50%' },
+              },
+              orbit: {
+                '0%': {
+                  transform: 'rotate(0deg) translateX(100px) rotate(0deg)',
+                },
+                '100%': {
+                  transform: 'rotate(360deg) translateX(100px) rotate(-360deg)',
+                },
+              },
+              sparkle: {
+                '0%, 100%': { opacity: '0', transform: 'scale(0)' },
+                '50%': { opacity: '1', transform: 'scale(1)' },
+              },
+              'slide-up': {
+                '0%': { transform: 'translateY(30px)', opacity: '0' },
+                '100%': { transform: 'translateY(0)', opacity: '1' },
+              },
+              'fade-in': {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              },
+              'slide-down': {
+                '0%': { transform: 'translateY(-20px)', opacity: '0' },
+                '100%': { transform: 'translateY(0)', opacity: '1' },
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /* Premium 3D Text Effects */
+      .text-3d {
+        text-shadow: 0 2px 0 #ccc, 0 4px 0 #c9c9c9, 0 6px 0 #bbb,
+          0 8px 0 #b9b9b9, 0 10px 0 #aaa, 0 12px 2px rgba(0, 0, 0, 0.1),
+          0 0 8px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.3),
+          0 6px 10px rgba(0, 0, 0, 0.2), 0 10px 20px rgba(0, 0, 0, 0.25),
+          0 20px 20px rgba(0, 0, 0, 0.2), 0 40px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      .text-gradient-animated {
+        background: linear-gradient(
+          45deg,
+          #32cd32,
+          #00ff00,
+          #7fff00,
+          #32cd32,
+          #00ff7f,
+          #32cd32
+        );
+        background-size: 400% 400%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: gradient-xy 4s ease infinite;
+      }
+
+      /* Enhanced Glass Effect */
+      .glass-card {
+        background: rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        border: 2px solid rgba(255, 255, 255, 0.4);
+        box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.3),
+                    0 0 0 1px rgba(255, 255, 255, 0.15) inset,
+                    0 10px 20px rgba(50, 205, 50, 0.1);
+      }
+
+      .hover-lift {
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .hover-lift:hover {
+        transform: translateY(-12px) scale(1.03);
+        box-shadow: 0 40px 80px -12px rgba(0, 0, 0, 0.4),
+                    0 0 0 2px rgba(255, 255, 255, 0.25) inset,
+                    0 15px 30px rgba(50, 205, 50, 0.2);
+      }
+
+      /* Header Styling */
+      .header-solid {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Input Focus Effects */
+      .input-glow:focus {
+        box-shadow: 0 0 0 4px rgba(50, 205, 50, 0.25),
+                    0 15px 35px -5px rgba(50, 205, 50, 0.4);
+        transform: translateY(-2px);
+      }
+
+      /* Enhanced Button Effects */
+      .btn-gradient {
+        background: linear-gradient(135deg, #32cd32 0%, #228b22 50%, #1e7e1e 100%);
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(50, 205, 50, 0.3);
+      }
+
+      .btn-gradient::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+        transition: left 0.6s;
+      }
+
+      .btn-gradient:hover::before {
+        left: 100%;
+      }
+
+      .btn-gradient:hover {
+        box-shadow: 0 15px 40px rgba(50, 205, 50, 0.5);
+        transform: translateY(-3px);
+      }
+
+      /* Particle Animation */
+      .particle {
+        position: absolute;
+        background: radial-gradient(circle, rgba(50, 205, 50, 0.9) 0%, transparent 70%);
+        border-radius: 50%;
+        pointer-events: none;
+        animation: float 5s ease-in-out infinite;
+      }
+
+      /* Chart Cards */
+      .chart-card {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .chart-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 25px 50px -10px rgba(0, 0, 0, 0.25);
+        background: rgba(255, 255, 255, 1);
+      }
+
+      /* History Card Styling */
+      .history-item {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .history-item:hover {
+        background: rgba(255, 255, 255, 0.95);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Risk Status Colors */
+      .risk-normal { color: #22c55e; }
+      .risk-elevated { color: #f59e0b; }
+      .risk-high { color: #ef4444; }
+    </style>
+  </head>
+  <body
+    class="min-h-screen bg-gradient-to-b from-brand1 via-brand2 to-brand3 flex flex-col overflow-x-hidden animate-fade-in"
+  >
+    <!-- Floating Particles Background -->
+    <div id="particles" class="fixed inset-0 pointer-events-none z-0"></div>
+
+    <!-- Enhanced Header with Custom Logo -->
+    <header
+      class="w-full py-5 px-6 flex items-center justify-between header-solid sticky top-0 z-50 animate-slide-down"
+    >
+      <div class="flex items-center gap-5">
+        <div class="w-14 h-14 bg-gradient-to-br from-green-400 to-green-600 rounded-lg flex items-center justify-center">
+          <i class="fas fa-heartbeat text-white text-2xl"></i>
+        </div>
+        <span
+          class="text-4xl md:text-5xl lg:text-6xl font-black font-display text-3d text-gradient-animated tracking-tight"
+        >
+          PREVENTRA
+        </span>
+      </div>
+      
+      <!-- Navigation -->
+      <div class="flex items-center gap-6">
+        <a href="health-index.html" class="text-gray-700 hover:text-green-600 font-bold transition-colors">
+          <i class="fas fa-home mr-2"></i>Home
+        </a>
+        <a href="profile.html" class="text-gray-700 hover:text-green-600 font-bold transition-colors">
+          <i class="fas fa-user mr-2"></i>Profile
+        </a>
+        <div class="text-right">
+          <p class="text-sm font-bold text-gray-800">BOKA</p>
+        </div>
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center border-2 border-white shadow-lg">
+          <i class="fas fa-user text-white text-lg"></i>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 px-6 py-8 relative z-10">
+      <div class="max-w-7xl mx-auto space-y-8">
+        <!-- Page Header -->
+        <div class="text-center mb-8 animate-slide-up">
+          <h1 class="text-4xl md:text-5xl font-black font-display leading-tight text-3d text-gradient-animated mb-4">
+            Diabetes Health
+          </h1>
+          <p class="text-lg text-gray-800 max-w-2xl mx-auto font-semibold">
+            Manage your diabetes with personalized insights and AI-powered health monitoring.
+          </p>
+        </div>
+
+        <!-- Health Data Input Form -->
+        <div class="glass-card rounded-3xl p-8 shadow-2xl hover-lift animate-slide-up" style="animation-delay: 0.1s">
+          <h3 class="text-2xl font-black text-gray-900 mb-6 flex items-center gap-3">
+            <i class="fas fa-user-md text-green-500 text-3xl"></i>
+            Enter Your Health Data
+          </h3>
+          
+          <form id="healthForm" method="POST" action="/submit-data/" class="space-y-6">
+            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+            
+            <div class="grid md:grid-cols-2 gap-6">
+              <!-- Weight Input -->
+              <div class="relative">
+                <label for="weight" class="block text-sm font-black text-gray-800 mb-2 flex items-center gap-2">
+                  <i class="fas fa-weight text-blue-500"></i>
+                  Weight (kg)
+                </label>
+                <input
+                  type="number"
+                  step="0.1"
+                  id="weight"
+                  name="weight"
+                  placeholder="65.5"
+                  class="w-full px-6 py-4 rounded-2xl bg-white/95 border-2 border-gray-300 text-gray-900 placeholder-gray-500 focus:outline-none input-glow focus:border-green-500 shadow-xl transition-all duration-400 hover:shadow-2xl font-semibold"
+                  required
+                />
+              </div>
+
+              <!-- Height Input -->
+              <div class="relative">
+                <label for="height" class="block text-sm font-black text-gray-800 mb-2 flex items-center gap-2">
+                  <i class="fas fa-ruler-vertical text-purple-500"></i>
+                  Height (cm)
+                </label>
+                <input
+                  type="number"
+                  step="0.1"
+                  id="height"
+                  name="height"
+                  placeholder="170.5"
+                  class="w-full px-6 py-4 rounded-2xl bg-white/95 border-2 border-gray-300 text-gray-900 placeholder-gray-500 focus:outline-none input-glow focus:border-green-500 shadow-xl transition-all duration-400 hover:shadow-2xl font-semibold"
+                  required
+                />
+              </div>
+
+              <!-- HbA1c Input -->
+              <div class="relative">
+                <label for="hba1c" class="block text-sm font-black text-gray-800 mb-2 flex items-center gap-2">
+                  <i class="fas fa-flask text-red-500"></i>
+                  HbA1c (%)
+                </label>
+                <input
+                  type="number"
+                  step="0.1"
+                  id="hba1c"
+                  name="hba1c_level"
+                  placeholder="5.7"
+                  class="w-full px-6 py-4 rounded-2xl bg-white/95 border-2 border-gray-300 text-gray-900 placeholder-gray-500 focus:outline-none input-glow focus:border-green-500 shadow-xl transition-all duration-400 hover:shadow-2xl font-semibold"
+                  required
+                />
+              </div>
+
+              <!-- Blood Glucose Input -->
+              <div class="relative">
+                <label for="blood_glucose" class="block text-sm font-black text-gray-800 mb-2 flex items-center gap-2">
+                  <i class="fas fa-tint text-orange-500"></i>
+                  Blood Glucose (mg/dL)
+                </label>
+                <input
+                  type="number"
+                  id="blood_glucose"
+                  name="blood_glucose_level"
+                  placeholder="120"
+                  class="w-full px-6 py-4 rounded-2xl bg-white/95 border-2 border-gray-300 text-gray-900 placeholder-gray-500 focus:outline-none input-glow focus:border-green-500 shadow-xl transition-all duration-400 hover:shadow-2xl font-semibold"
+                  required
+                />
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="flex justify-center mt-8">
+              <button
+                type="submit"
+                class="px-12 py-4 rounded-2xl font-black text-white text-lg btn-gradient shadow-2xl hover:shadow-3xl transition-all duration-400 relative overflow-hidden group"
+              >
+                <span class="relative z-10 flex items-center justify-center gap-2">
+                  <i class="fas fa-paper-plane"></i>
+                  Submit Health Data
+                </span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Blood Sugar Input Form -->
+        <div class="glass-card rounded-3xl p-8 shadow-2xl hover-lift animate-slide-up" style="animation-delay: 0.15s">
+          <h3 class="text-2xl font-black text-gray-900 mb-6 flex items-center gap-3">
+            <i class="fas fa-tint text-green-500 text-3xl"></i>
+            Add New Reading
+          </h3>
+          <div class="grid md:grid-cols-3 gap-6">
+            <div>
+              <label for="bloodSugar" class="block text-sm font-black text-gray-800 mb-2 flex items-center gap-2">
+                <i class="fas fa-chart-line text-blue-500"></i>
+                Blood Sugar (mg/dL)
+              </label>
+              <input
+                type="number"
+                id="bloodSugar"
+                placeholder="120"
+                class="w-full px-6 py-4 rounded-2xl bg-white/95 border-2 border-gray-300 text-gray-900 placeholder-gray-500 focus:outline-none input-glow focus:border-green-500 shadow-xl transition-all duration-400 hover:shadow-2xl font-semibold"
+              />
+            </div>
+            <div>
+              <label for="testType" class="block text-sm font-black text-gray-800 mb-2 flex items-center gap-2">
+                <i class="fas fa-clock text-purple-500"></i>
+                Test Type
+              </label>
+              <select
+                id="testType"
+                class="w-full px-6 py-4 rounded-2xl bg-white/95 border-2 border-gray-300 text-gray-900 focus:outline-none input-glow focus:border-green-500 shadow-xl transition-all duration-400 hover:shadow-2xl font-semibold"
+              >
+                <option value="fasting">Fasting</option>
+                <option value="postmeal">Post-meal</option>
+                <option value="random">Random</option>
+                <option value="bedtime">Bedtime</option>
+              </select>
+            </div>
+            <div class="flex items-end">
+              <button
+                onclick="addReading()"
+                class="w-full py-4 px-8 rounded-2xl font-black text-white text-lg btn-gradient shadow-2xl hover:shadow-3xl transition-all duration-400 relative overflow-hidden group"
+              >
+                <span class="relative z-10 flex items-center justify-center gap-2">
+                  <i class="fas fa-plus"></i>
+                  Add Reading
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Current Reading Display -->
+        <div class="glass-card rounded-3xl p-8 shadow-2xl hover-lift animate-slide-up" style="animation-delay: 0.2s">
+          <div class="flex items-center justify-between mb-6">
+            <h3 class="text-2xl font-black text-gray-900 flex items-center gap-3">
+              <i class="fas fa-heartbeat text-red-500 text-3xl"></i>
+              Latest Blood Sugar
+            </h3>
+            <span id="trend-indicator" class="text-sm font-bold px-4 py-2 rounded-full bg-gray-100 text-gray-600">
+              No data yet
+            </span>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="text-4xl font-black text-gray-900" id="current-reading">
+              -- mg/dL
+            </div>
+            <div class="text-right">
+              <span id="sugar-status" class="text-lg font-bold px-4 py-2 rounded-full bg-gray-100 text-gray-600">
+                Add a reading
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="grid lg:grid-cols-2 gap-8">
+          <!-- Blood Sugar Trends Chart -->
+          <div class="chart-card rounded-3xl p-8 shadow-2xl hover-lift animate-slide-up" style="animation-delay: 0.3s">
+            <h3 class="text-xl font-black text-gray-900 mb-6 flex items-center gap-3">
+              <i class="fas fa-chart-line text-green-500 text-2xl"></i>
+              Blood Sugar Trends
+            </h3>
+            <div class="mb-6">
+              <div class="text-lg font-bold text-gray-700">Average Reading</div>
+              <div class="text-2xl font-black text-gray-900" id="weekly-average">-- mg/dL</div>
+              <div class="text-sm text-gray-600" id="weekly-trend">Add readings to see trends</div>
+            </div>
+            <div class="relative h-64 w-full">
+              <canvas id="trendsChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Risk Assessment Chart -->
+          <div class="chart-card rounded-3xl p-8 shadow-2xl hover-lift animate-slide-up" style="animation-delay: 0.4s">
+            <h3 class="text-xl font-black text-gray-900 mb-6 flex items-center gap-3">
+              <i class="fas fa-exclamation-triangle text-amber-500 text-2xl"></i>
+              Risk Assessment
+            </h3>
+            <div class="mb-6">
+              <div class="text-lg font-bold text-gray-700">Current Risk Level</div>
+              <div class="text-2xl font-black" id="current-risk-level">--</div>
+              <div class="text-sm text-gray-600" id="risk-description">Based on your readings</div>
+            </div>
+            <div class="relative h-64 w-full">
+              <canvas id="riskChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7-Day History Section -->
+        <div class="glass-card rounded-3xl p-8 shadow-2xl hover-lift animate-slide-up" style="animation-delay: 0.5s">
+          <div class="flex items-center justify-between mb-6">
+            <h3 class="text-2xl font-black text-gray-900 flex items-center gap-3">
+              <i class="fas fa-history text-blue-500 text-3xl"></i>
+              Reading History
+            </h3>
+            <div class="text-sm text-gray-600 font-semibold">
+              <i class="fas fa-calendar-alt mr-2"></i>
+              Recent Entries
+            </div>
+          </div>
+          
+          <div class="grid gap-4" id="history-container">
+            <!-- History items will be dynamically generated here -->
+          </div>
+          
+          <!-- Summary Stats -->
+          <div class="mt-6 pt-6 border-t border-gray-200">
+            <div class="grid md:grid-cols-3 gap-6">
+              <div class="text-center">
+                <div class="text-2xl font-black text-gray-900" id="avg-reading">--</div>
+                <div class="text-sm text-gray-600 font-semibold">Avg Blood Sugar</div>
+              </div>
+              <div class="text-center">
+                <div class="text-2xl font-black text-gray-900" id="total-readings">0</div>
+                <div class="text-sm text-gray-600 font-semibold">Total Readings</div>
+              </div>
+              <div class="text-center">
+                <div class="text-2xl font-black text-gray-900" id="normal-readings">0</div>
+                <div class="text-sm text-gray-600 font-semibold">Normal Readings</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Enhanced Footer -->
+    <footer
+      class="py-6 px-6 text-gray-800 text-sm flex flex-col md:flex-row justify-between items-center border-t-2 border-gray-400 bg-white/95 backdrop-blur-md shadow-inner space-y-4 md:space-y-0"
+    >
+      <div class="flex items-center">
+        <p class="font-black">©️ <span id="year"></span> Preventra Health Technologies</p>
+      </div>
+      <nav class="flex gap-6 font-black">
+        <a
+          href="#"
+          class="hover:text-green-600 transition-colors hover:underline flex items-center gap-1"
+        >
+          <i class="fas fa-headset text-xs"></i>
+          Support
+        </a>
+        <a
+          href="#"
+          class="hover:text-green-600 transition-colors hover:underline flex items-center gap-1"
+        >
+          <i class="fas fa-user-shield text-xs"></i>
+          Privacy
+        </a>
+        <a
+          href="#"
+          class="hover:text-green-600 transition-colors hover:underline flex items-center gap-1"
+        >
+          <i class="fas fa-chart-line text-xs"></i>
+          Status
+        </a>
+      </nav>
+    </footer>
+
+    <script>
+      // Global variables
+      let readings = [];
+      let trendsChart = null;
+      let riskChart = null;
+
+      // Set current year
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Enhanced Particle System
+      function createParticles() {
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 35;
+
+        for (let i = 0; i < particleCount; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'particle';
+
+          const size = Math.random() * 4 + 2;
+          particle.style.width = size + 'px';
+          particle.style.height = size + 'px';
+          particle.style.left = Math.random() * 100 + '%';
+          particle.style.top = Math.random() * 100 + '%';
+
+          particle.style.animationDelay = Math.random() * 5 + 's';
+          particle.style.animationDuration = Math.random() * 5 + 4 + 's';
+
+          particlesContainer.appendChild(particle);
+        }
+      }
+
+      // Calculate diabetes risk based on blood sugar level and test type
+      function calculateDiabetesRisk(bloodSugar, testType) {
+        let riskLevel = 0;
+        
+        if (testType === 'fasting') {
+          if (bloodSugar < 100) {
+            riskLevel = 10; // Low risk
+          } else if (bloodSugar < 126) {
+            riskLevel = 60; // Pre-diabetes
+          } else {
+            riskLevel = 90; // Diabetes
+          }
+        } else if (testType === 'postmeal') {
+          if (bloodSugar < 140) {
+            riskLevel = 15; // Low risk
+          } else if (bloodSugar < 200) {
+            riskLevel = 65; // Pre-diabetes
+          } else {
+            riskLevel = 95; // Diabetes
+          }
+        } else { // random or bedtime
+          if (bloodSugar < 140) {
+            riskLevel = 20; // Low risk
+          } else if (bloodSugar < 200) {
+            riskLevel = 70; // Elevated
+          } else {
+            riskLevel = 90; // High risk
+          }
+        }
+        
+        return riskLevel;
+      }
+
+      // Initialize charts
+      function initCharts() {
+        // Destroy existing charts if they exist
+        if (trendsChart) {
+          trendsChart.destroy();
+        }
+        if (riskChart) {
+          riskChart.destroy();
+        }
+
+        // Blood Sugar Trends Chart
+        const trendsCtx = document.getElementById('trendsChart').getContext('2d');
+        
+        // Prepare data for trends chart
+        const chartData = readings.map((reading, index) => ({
+          x: index + 1,
+          y: reading.bloodSugar,
+          reading: reading
+        }));
+
+        // Create color-coded points based on test type
+        const pointColors = readings.map(reading => {
+          switch(reading.type) {
+            case 'fasting': return 'rgba(34, 197, 94, 1)'; // Green
+            case 'postmeal': return 'rgba(59, 130, 246, 1)'; // Blue
+            case 'bedtime': return 'rgba(147, 51, 234, 1)'; // Purple
+            case 'random': return 'rgba(251, 191, 36, 1)'; // Yellow
+            default: return 'rgba(156, 163, 175, 1)'; // Gray
+          }
+        });
+
+        trendsChart = new Chart(trendsCtx, {
+          type: 'line',
+          data: {
+            datasets: [{
+              label: 'Blood Sugar Readings',
+              data: chartData,
+              borderColor: 'rgba(34, 197, 94, 1)',
+              backgroundColor: 'rgba(34, 197, 94, 0.1)',
+              pointBackgroundColor: pointColors,
+              pointBorderColor: pointColors,
+              borderWidth: 3,
+              pointRadius: 8,
+              pointHoverRadius: 12,
+              fill: true,
+              tension: 0.4
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+              intersect: false,
+              mode: 'point'
+            },
+            plugins: {
+              legend: {
+                display: true,
+                position: 'top',
+                labels: {
+                  usePointStyle: true,
+                  padding: 20,
+                  font: {
+                    weight: 'bold'
+                  },
+                  generateLabels: function(chart) {
+                    const uniqueTypes = [...new Set(readings.map(r => r.type))];
+                    return uniqueTypes.map(type => ({
+                      text: type.charAt(0).toUpperCase() + type.slice(1),
+                      fillStyle: getColorForType(type),
+                      strokeStyle: getColorForType(type)
+                    }));
+                  }
+                }
+              },
+              tooltip: {
+                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                titleColor: 'white',
+                bodyColor: 'white',
+                borderColor: 'rgba(255, 255, 255, 0.1)',
+                borderWidth: 1,
+                callbacks: {
+                  title: function(context) {
+                    const reading = context[0].raw.reading;
+                    return `Reading #${context[0].raw.x} - ${reading.date.toLocaleDateString()}`;
+                  },
+                  label: function(context) {
+                    const reading = context.raw.reading;
+                    return [
+                      `Blood Sugar: ${reading.bloodSugar} mg/dL`,
+                      `Test Type: ${reading.type.charAt(0).toUpperCase() + reading.type.slice(1)}`,
+                      `Time: ${reading.date.toLocaleTimeString()}`
+                    ];
+                  }
+                }
+              }
+            },
+            scales: {
+              x: {
+                type: 'linear',
+                position: 'bottom',
+                grid: {
+                  display: true,
+                  color: 'rgba(107, 114, 128, 0.1)'
+                },
+                ticks: {
+                  color: '#6b7280',
+                  font: {
+                    weight: 'bold'
+                  },
+                  callback: function(value) {
+                    return `#${Math.floor(value)}`;
+                  }
+                },
+                title: {
+                  display: true,
+                  text: 'Reading Number',
+                  color: '#6b7280',
+                  font: {
+                    weight: 'bold'
+                  }
+                }
+              },
+              y: {
+                beginAtZero: false,
+                min: Math.max(70, Math.min(...readings.map(r => r.bloodSugar)) - 20),
+                max: Math.min(300, Math.max(...readings.map(r => r.bloodSugar)) + 20),
+                grid: {
+                  color: 'rgba(107, 114, 128, 0.1)'
+                },
+                ticks: {
+                  color: '#6b7280',
+                  font: {
+                    weight: 'bold'
+                  },
+                  callback: function(value) {
+                    return value + ' mg/dL';
+                  }
+                },
+                title: {
+                  display: true,
+                  text: 'Blood Sugar (mg/dL)',
+                  color: '#6b7280',
+                  font: {
+                    weight: 'bold'
+                  }
+                }
+              }
+            }
+          }
+        });
+
+        // Risk Assessment Chart
+        const riskCtx = document.getElementById('riskChart').getContext('2d');
+        
+        // Calculate risk levels for each reading
+        const riskData = readings.map((reading, index) => ({
+          x: index + 1,
+          y: calculateDiabetesRisk(reading.bloodSugar, reading.type),
+          reading: reading
+        }));
+
+        // Create color-coded bars based on risk level
+        const riskColors = riskData.map(data => {
+          if (data.y < 30) return 'rgba(34, 197, 94, 0.8)'; // Green for low risk
+          if (data.y < 60) return 'rgba(251, 191, 36, 0.8)'; // Yellow for moderate risk
+          return 'rgba(239, 68, 68, 0.8)'; // Red for high risk
+        });
+
+        const riskBorderColors = riskData.map(data => {
+          if (data.y < 30) return 'rgba(34, 197, 94, 1)';
+          if (data.y < 60) return 'rgba(251, 191, 36, 1)';
+          return 'rgba(239, 68, 68, 1)';
+        });
+        
+        riskChart = new Chart(riskCtx, {
+          type: 'bar',
+          data: {
+            labels: readings.map((reading, index) => `#${index + 1}`),
+            datasets: [{
+              label: 'Diabetes Risk Level',
+              data: riskData.map(data => data.y),
+              backgroundColor: riskColors,
+              borderColor: riskBorderColors,
+              borderWidth: 2,
+              borderRadius: 6
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+              intersect: false,
+              mode: 'index'
+            },
+            plugins: {
+              legend: {
+                display: false
+              },
+              tooltip: {
+                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                titleColor: 'white',
+                bodyColor: 'white',
+                borderColor: 'rgba(255, 255, 255, 0.1)',
+                borderWidth: 1,
+                callbacks: {
+                  title: function(context) {
+                    const index = context[0].dataIndex;
+                    const reading = readings[index];
+                    return `Reading #${index + 1} - ${reading.date.toLocaleDateString()}`;
+                  },
+                  label: function(context) {
+                    const index = context.dataIndex;
+                    const reading = readings[index];
+                    const riskValue = context.parsed.y;
+                    let riskText = 'Low Risk';
+                    if (riskValue >= 60) riskText = 'High Risk';
+                    else if (riskValue >= 30) riskText = 'Moderate Risk';
+                    
+                    return [
+                      `Risk Level: ${riskValue}% (${riskText})`,
+                      `Blood Sugar: ${reading.bloodSugar} mg/dL`,
+                      `Test Type: ${reading.type.charAt(0).toUpperCase() + reading.type.slice(1)}`
+                    ];
+                  }
+                }
+              }
+            },
+            scales: {
+              x: {
+                grid: {
+                  display: false
+                },
+                ticks: {
+                  color: '#6b7280',
+                  font: {
+                    weight: 'bold'
+                  }
+                },
+                title: {
+                  display: true,
+                  text: 'Reading Number',
+                  color: '#6b7280',
+                  font: {
+                    weight: 'bold'
+                  }
+                }
+              },
+              y: {
+                beginAtZero: true,
+                max: 100,
+                grid: {
+                  color: 'rgba(107, 114, 128, 0.1)'
+                },
+                ticks: {
+                  color: '#6b7280',
+                  font: {
+                    weight: 'bold'
+                  },
+                  callback: function(value) {
+                    return value + '%';
+                  }
+                },
+                title: {
+                  display: true,
+                  text: 'Risk Level (%)',
+                  color: '#6b7280',
+                  font: {
+                    weight: 'bold'
+                  }
+                }
+              }
+            }
+          }
+        });
+
+        // Show empty state if no readings
+        if (readings.length === 0) {
+          showEmptyChartState();
+        }
+      }
+
+      // Helper function to get color for test type
+      function getColorForType(type) {
+        switch(type) {
+          case 'fasting': return 'rgba(34, 197, 94, 1)'; // Green
+          case 'postmeal': return 'rgba(59, 130, 246, 1)'; // Blue
+          case 'bedtime': return 'rgba(147, 51, 234, 1)'; // Purple
+          case 'random': return 'rgba(251, 191, 36, 1)'; // Yellow
+          default: return 'rgba(156, 163, 175, 1)'; // Gray
+        }
+      }
+
+      // Show empty state for charts when no data
+      function showEmptyChartState() {
+        const trendsCtx = document.getElementById('trendsChart').getContext('2d');
+        const riskCtx = document.getElementById('riskChart').getContext('2d');
+        
+        if (trendsChart) trendsChart.destroy();
+        if (riskChart) riskChart.destroy();
+        
+        // Create empty charts with placeholder message
+        trendsChart = new Chart(trendsCtx, {
+          type: 'line',
+          data: {
+            datasets: []
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: false
+              }
+            },
+            scales: {
+              x: {
+                display: false
+              },
+              y: {
+                display: false
+              }
+            }
+          }
+        });
+        
+        riskChart = new Chart(riskCtx, {
+          type: 'bar',
+          data: {
+            datasets: []
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: false
+              }
+            },
+            scales: {
+              x: {
+                display: false
+              },
+              y: {
+                display: false
+              }
+            }
+          }
+        });
+      }
+
+      // Add new reading function
+      function addReading() {
+        const bloodSugar = document.getElementById('bloodSugar').value;
+        const testType = document.getElementById('testType').value;
+        
+        if (bloodSugar && !isNaN(bloodSugar) && bloodSugar > 0) {
+          // Create a reading object
+          const newReading = {
+            id: Date.now(),
+            date: new Date(),
+            bloodSugar: parseInt(bloodSugar),
+            type: testType
+          };
+          
+          readings.push(newReading);
+          
+          // Update all displays
+          updateCurrentReading();
+          updateAverageReading();
+          updateReadingsHistory();
+          updateWeeklyStats();
+          updateCurrentRiskLevel();
+          initCharts(); // Reinitialize charts with new data
+          
+          // Clear inputs
+          document.getElementById('bloodSugar').value = '';
+          
+          // Success animation
+          showSuccessMessage('Reading added successfully!');
+        } else {
+          showErrorMessage('Please enter a valid blood sugar value.');
+        }
+      }
+
+      // Update current reading display
+      function updateCurrentReading() {
+        if (readings.length === 0) {
+          document.getElementById('current-reading').textContent = '-- mg/dL';
+          document.getElementById('sugar-status').textContent = 'Add a reading';
+          document.getElementById('sugar-status').className = 'text-lg font-bold px-4 py-2 rounded-full bg-gray-100 text-gray-600';
+          document.getElementById('trend-indicator').textContent = 'No data yet';
+          document.getElementById('trend-indicator').className = 'text-sm font-bold px-4 py-2 rounded-full bg-gray-100 text-gray-600';
+          return;
+        }
+        
+        const latestReading = readings[readings.length - 1];
+        document.getElementById('current-reading').textContent = `${latestReading.bloodSugar} mg/dL`;
+        updateSugarStatus(latestReading.bloodSugar, latestReading.type);
+        
+        // Calculate trend
+        if (readings.length > 1) {
+          const previousReading = readings[readings.length - 2];
+          const difference = latestReading.bloodSugar - previousReading.bloodSugar;
+          const percentChange = ((difference / previousReading.bloodSugar) * 100).toFixed(1);
+          
+          const trendElement = document.getElementById('trend-indicator');
+          if (difference > 0) {
+            trendElement.textContent = `+${percentChange}%`;
+            trendElement.className = 'text-sm font-bold px-4 py-2 rounded-full bg-red-100 text-red-800';
+          } else if (difference < 0) {
+            trendElement.textContent = `${percentChange}%`;
+            trendElement.className = 'text-sm font-bold px-4 py-2 rounded-full bg-green-100 text-green-800';
+          } else {
+            trendElement.textContent = 'No change';
+            trendElement.className = 'text-sm font-bold px-4 py-2 rounded-full bg-gray-100 text-gray-600';
+          }
+        }
+      }
+
+      // Update average reading
+      function updateAverageReading() {
+        if (readings.length === 0) {
+          document.getElementById('avg-reading').textContent = '--';
+          return;
+        }
+        
+        const average = readings.reduce((sum, reading) => sum + reading.bloodSugar, 0) / readings.length;
+        document.getElementById('avg-reading').textContent = Math.round(average);
+      }
+
+      // Update weekly statistics
+      function updateWeeklyStats() {
+        if (readings.length === 0) {
+          document.getElementById('weekly-average').textContent = '-- mg/dL';
+          document.getElementById('weekly-trend').textContent = 'Add readings to see trends';
+          return;
+        }
+
+        // Calculate overall average
+        const overallAverage = readings.reduce((sum, reading) => sum + reading.bloodSugar, 0) / readings.length;
+        document.getElementById('weekly-average').textContent = `${Math.round(overallAverage)} mg/dL`;
+        
+        // Show reading count and latest trend
+        if (readings.length > 1) {
+          const latest = readings[readings.length - 1];
+          const previous = readings[readings.length - 2];
+          const change = latest.bloodSugar - previous.bloodSugar;
+          
+          if (change > 0) {
+            document.getElementById('weekly-trend').textContent = `↑ +${change} mg/dL from last reading`;
+          } else if (change < 0) {
+            document.getElementById('weekly-trend').textContent = `↓ ${change} mg/dL from last reading`;
+          } else {
+            document.getElementById('weekly-trend').textContent = 'No change from last reading';
+          }
+        } else {
+          document.getElementById('weekly-trend').textContent = `${readings.length} reading recorded`;
+        }
+      }
+
+      // Update current risk level display
+      function updateCurrentRiskLevel() {
+        if (readings.length === 0) {
+          document.getElementById('current-risk-level').textContent = '--';
+          document.getElementById('current-risk-level').className = 'text-2xl font-black text-gray-600';
+          document.getElementById('risk-description').textContent = 'Based on your readings';
+          return;
+        }
+
+        const latestReading = readings[readings.length - 1];
+        const riskLevel = calculateDiabetesRisk(latestReading.bloodSugar, latestReading.type);
+        
+        const riskElement = document.getElementById('current-risk-level');
+        const descElement = document.getElementById('risk-description');
+        
+        if (riskLevel < 30) {
+          riskElement.textContent = 'Low';
+          riskElement.className = 'text-2xl font-black risk-normal';
+          descElement.textContent = 'Your levels are within normal range';
+        } else if (riskLevel < 60) {
+          riskElement.textContent = 'Moderate';
+          riskElement.className = 'text-2xl font-black risk-elevated';
+          descElement.textContent = 'Consider lifestyle changes and monitoring';
+        } else {
+          riskElement.textContent = 'High';
+          riskElement.className = 'text-2xl font-black risk-high';
+          descElement.textContent = 'Please consult with your healthcare provider';
+        }
+      }
+
+      // Update blood sugar status
+      function updateSugarStatus(bloodSugar, type) {
+        const statusElement = document.getElementById('sugar-status');
+        let status, className;
+        
+        if (type === 'fasting') {
+          if (bloodSugar < 100) {
+            status = 'Normal';
+            className = 'bg-green-100 text-green-800';
+          } else if (bloodSugar < 126) {
+            status = 'Pre-diabetes';
+            className = 'bg-yellow-100 text-yellow-800';
+          } else {
+            status = 'Diabetes';
+            className = 'bg-red-100 text-red-800';
+          }
+        } else if (type === 'postmeal') {
+          if (bloodSugar < 140) {
+            status = 'Normal';
+            className = 'bg-green-100 text-green-800';
+          } else if (bloodSugar < 200) {
+            status = 'Pre-diabetes';
+            className = 'bg-yellow-100 text-yellow-800';
+          } else {
+            status = 'Diabetes';
+            className = 'bg-red-100 text-red-800';
+          }
+        } else {
+          if (bloodSugar < 140) {
+            status = 'Normal';
+            className = 'bg-green-100 text-green-800';
+          } else if (bloodSugar < 200) {
+            status = 'Elevated';
+            className = 'bg-orange-100 text-orange-800';
+          } else {
+            status = 'High';
+            className = 'bg-red-100 text-red-800';
+          }
+        }
+        
+        statusElement.textContent = status;
+        statusElement.className = `text-lg font-bold px-4 py-2 rounded-full ${className}`;
+      }
+
+      // Update readings history display
+      function updateReadingsHistory() {
+        const container = document.getElementById('history-container');
+        
+        if (readings.length === 0) {
+          container.innerHTML = `
+            <div class="text-center py-8 text-gray-500">
+              <i class="fas fa-chart-line text-4xl mb-4"></i>
+              <p class="text-lg font-semibold">No readings yet</p>
+              <p class="text-sm">Add your first blood sugar reading to see your history</p>
+            </div>
+          `;
+          return;
+        }
+
+        // Show all readings, newest first
+        const sortedReadings = [...readings].reverse();
+        
+        container.innerHTML = sortedReadings.map((reading, index) => {
+          const status = getReadingStatus(reading.bloodSugar, reading.type);
+          const timeAgo = getTimeAgo(reading.date);
+          const originalIndex = readings.length - index;
+          
+          return `
+            <div class="history-item rounded-2xl p-4 flex items-center justify-between">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
+                  <span class="text-white font-bold text-sm">#${originalIndex}</span>
+                </div>
+                <div>
+                  <div class="font-bold text-gray-900">${reading.bloodSugar} mg/dL</div>
+                  <div class="text-sm text-gray-600">${reading.type.charAt(0).toUpperCase() + reading.type.slice(1)} • ${timeAgo}</div>
+                </div>
+              </div>
+              <div class="text-right">
+                <div class="text-sm font-bold px-3 py-1 rounded-full ${status.className}">
+                  ${status.text}
+                </div>
+                <div class="text-xs text-gray-500 mt-1">
+                  ${reading.date.toLocaleDateString()} ${reading.date.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        // Update summary stats
+        updateSummaryStats();
+      }
+
+      // Get reading status
+      function getReadingStatus(bloodSugar, type) {
+        if (type === 'fasting') {
+          if (bloodSugar < 100) {
+            return { text: 'Normal', className: 'bg-green-100 text-green-800' };
+          } else if (bloodSugar < 126) {
+            return { text: 'Pre-diabetes', className: 'bg-yellow-100 text-yellow-800' };
+          } else {
+            return { text: 'Diabetes', className: 'bg-red-100 text-red-800' };
+          }
+        } else if (type === 'postmeal') {
+          if (bloodSugar < 140) {
+            return { text: 'Normal', className: 'bg-green-100 text-green-800' };
+          } else if (bloodSugar < 200) {
+            return { text: 'Pre-diabetes', className: 'bg-yellow-100 text-yellow-800' };
+          } else {
+            return { text: 'Diabetes', className: 'bg-red-100 text-red-800' };
+          }
+        } else {
+          if (bloodSugar < 140) {
+            return { text: 'Normal', className: 'bg-green-100 text-green-800' };
+          } else if (bloodSugar < 200) {
+            return { text: 'Elevated', className: 'bg-orange-100 text-orange-800' };
+          } else {
+            return { text: 'High', className: 'bg-red-100 text-red-800' };
+          }
+        }
+      }
+
+      // Get time ago string
+      function getTimeAgo(date) {
+        const now = new Date();
+        const diffInMinutes = Math.floor((now - date) / (1000 * 60));
+        
+        if (diffInMinutes < 1) return 'Just now';
+        if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
+        
+        const diffInHours = Math.floor(diffInMinutes / 60);
+        if (diffInHours < 24) return `${diffInHours}h ago`;
+        
+        const diffInDays = Math.floor(diffInHours / 24);
+        return `${diffInDays}d ago`;
+      }
+
+      // Update summary statistics
+      function updateSummaryStats() {
+        document.getElementById('total-readings').textContent = readings.length;
+        
+        const normalReadings = readings.filter(reading => {
+          const status = getReadingStatus(reading.bloodSugar, reading.type);
+          return status.text === 'Normal';
+        }).length;
+        
+        document.getElementById('normal-readings').textContent = normalReadings;
+      }
+
+      // Show success message
+      function showSuccessMessage(message) {
+        const successDiv = document.createElement('div');
+        successDiv.className = 'fixed top-20 right-6 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-slide-down';
+        successDiv.innerHTML = `
+          <div class="flex items-center gap-2">
+            <i class="fas fa-check-circle"></i>
+            <span class="font-semibold">${message}</span>
+          </div>
+        `;
+        
+        document.body.appendChild(successDiv);
+        
+        setTimeout(() => {
+          successDiv.remove();
+        }, 3000);
+      }
+
+      // Show error message function
+      function showErrorMessage(message) {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'fixed top-20 right-6 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-slide-down';
+        errorDiv.innerHTML = `
+          <div class="flex items-center gap-2">
+            <i class="fas fa-exclamation-circle"></i>
+            <span class="font-semibold">${message}</span>
+          </div>
+        `;
+        
+        document.body.appendChild(errorDiv);
+        
+        setTimeout(() => {
+          errorDiv.remove();
+        }, 4000);
+      }
+
+      // Health Form Submission Handler
+      document.getElementById("healthForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+
+        // For demo purposes, since we don't have a real backend
+        console.log("Health form data:", {
+          weight: formData.get("weight"),
+          height: formData.get("height"),
+          hba1c: formData.get("hba1c_level"),
+          bloodGlucose: formData.get("blood_glucose_level")
+        });
+
+        showSuccessMessage("Your health data has been successfully submitted!");
+        
+        // Clear form after successful submission
+        document.getElementById("healthForm").reset();
+      });
+
+      // Allow Enter key to add reading
+      document.getElementById('bloodSugar').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          addReading();
+        }
+      });
+
+      // Initialize everything when page loads
+      createParticles();
+      updateReadingsHistory();
+      initCharts(); // Initialize charts
+      updateCurrentReading();
+      updateWeeklyStats();
+      updateCurrentRiskLevel();
+
+      // Enhanced sparkle effect on click
+      document.addEventListener('click', (e) => {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'particle';
+        sparkle.style.position = 'fixed';
+        sparkle.style.left = e.clientX + 'px';
+        sparkle.style.top = e.clientY + 'px';
+        sparkle.style.pointerEvents = 'none';
+        sparkle.style.zIndex = '9999';
+        sparkle.style.animation = 'sparkle 1s ease-out forwards';
+        sparkle.style.background = 'radial-gradient(circle, rgba(50, 205, 50, 1) 0%, transparent 70%)';
+        sparkle.style.width = '8px';
+        sparkle.style.height = '8px';
+
+        document.body.appendChild(sparkle);
+
+        setTimeout(() => {
+          sparkle.remove();
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
